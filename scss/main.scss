@@ -1,9 +1,21 @@
+$colorGrey: rgb(204,204,204);
+$colorBlue: rgb(44, 86, 157);
+$colorBlack: rgb(0, 0, 0);
+$colorWhite: rgb(255, 255, 255);
+$colorPink: rgb(255, 0, 255);
+
 *,
 *:after,
 *:before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  padding: 0;
+  border: 0;
 }
 
 html,
@@ -14,12 +26,12 @@ body {
 
 body {
   overflow: auto;
-  background: #ccc;
+  background: $colorGrey;
   font-family: 'Helvetica', 'Arial', sans-serif;
   font-size: 12px;
 }
 
-$bg: "https://dl.dropboxusercontent.com/u/3739354/sketch7_by_est1978-d9mhq02.png";
+$bg: 'https://dl.dropboxusercontent.com/u/3739354/sketch7_by_est1978-d9mhq02.png';
 
 .container {
   width: 600px;
@@ -27,12 +39,11 @@ $bg: "https://dl.dropboxusercontent.com/u/3739354/sketch7_by_est1978-d9mhq02.png
   background-image: url($bg);
   background-repeat: no-repeat;
   background-position: 0 0;
-  background-color: #fff;
-  
+  background-color: $colorWhite;
   transform: scale(1);
   transform-origin: left top;
   image-rendering: pixelated;
-  
+
   &-in {
     width: 100%;
     height: 100%;
@@ -44,14 +55,12 @@ $bg: "https://dl.dropboxusercontent.com/u/3739354/sketch7_by_est1978-d9mhq02.png
   &.cursor-crosshair {
     cursor: crosshair;
   }
-}
-
-.button {
-  padding: 10px;
-}
-
-.tools {
-  margin: 0 0 10px;
+  &.cursor-default {
+    .box:hover,
+    .spot-in:hover {
+      background: rgba($colorPink, 0.5);
+    }
+  }
 }
 
 .menu {
@@ -59,22 +68,34 @@ $bg: "https://dl.dropboxusercontent.com/u/3739354/sketch7_by_est1978-d9mhq02.png
   right: 20px;
   top: 20px;
   z-index: 10;
+  min-width: 30%;
+}
+
+.info {
+  overflow: hidden;
+  margin: 10px 0 0;
+  padding: 5px;
+  background: rgba($colorWhite, 0.5);
+  font-family: 'Courier New', sans-serif;
+  font-size: 14px;
 }
 
 .box-info,
 .cursor-info {
-  margin: 10px 0 0;
-  padding: 5px;
-  background: rgba(204,204,204,0.3);
-  &:empty {
-    display: none;
-  }
+  width: 49%;
 }
 
+.box-info {
+  float: left;
+}
+
+.cursor-info {
+  float: right;
+}
 
 .box {
   position: absolute;
-  background: rgba(44, 86, 157, 0.5);
+  background: rgba($colorBlue, 0.5);
 }
 
 .spot {
@@ -82,7 +103,7 @@ $bg: "https://dl.dropboxusercontent.com/u/3739354/sketch7_by_est1978-d9mhq02.png
   width: 1px;
   height: 1px;
   &-in {
-    background: rgba(44, 86, 157, 0.8);
+    background: rgba($colorBlue, 0.8);
     border-radius: 50%;
     position: absolute;
     left: 50%;
@@ -94,12 +115,66 @@ $bg: "https://dl.dropboxusercontent.com/u/3739354/sketch7_by_est1978-d9mhq02.png
       content: '';
       width: 40%;
       height: 40%;
-      background: #fff;
+      background: $colorWhite;
       position: absolute;
       left: 50%;
       top: 50%;
       border-radius: 50%;
       transform: translate(-50%, -50%);
+    }
+  }
+}
+
+.buttons-line {
+  overflow: hidden;
+  position: relative;
+  padding: 10px 0 0;
+  font-size: 0;
+  white-space: nowrap;
+  &:first-child {
+    padding: 0;
+  }
+  input {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    &:first-child + label {
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+    }
+    &:checked + label {
+      background: $colorBlue;
+      color: $colorWhite;
+    }
+  }
+  label,
+  .button {
+    display: inline-block;
+    background: $colorWhite;
+    border: 0;
+    padding: 5px 12px;
+    font-size: 16px;
+    border: 1px solid $colorBlack;
+    border-right: 0;
+    cursor: pointer;
+    &.active {
+      background: $colorBlue;
+      color: $colorWhite;
+    }
+    &:focus {
+      outline: none;
+    }
+    &:first-child {
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+    }
+    &:last-child {
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      border-right: 1px solid $colorBlack;
     }
   }
 }

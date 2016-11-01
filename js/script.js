@@ -8,6 +8,7 @@ $(document).ready(function() {
   var clickCount = 0;
   
   var scale = $(".scale");
+  var scaleButtons = scale.find(".button");
   var boxInfo = $(".box-info");
   var cursorInfo = $(".cursor-info");
   
@@ -17,6 +18,11 @@ $(document).ready(function() {
     el.css({"transform": "scale(" + num + ")"}).parent().scrollLeft(0).scrollTop(0);
   };
 
+  scaleButtons.click(function(){
+    scaleButtons.removeClass("active");
+    $(this).addClass("active");
+  });
+
   scale.find('button').click(function(){
     scaleFactor = $(this).data("scale");
     getScale(scaleFactor);
@@ -24,10 +30,14 @@ $(document).ready(function() {
 
   reset.click(function() {
     containerIn.add(boxInfo).html('');
+
     boxCount = 0;
     spotCount = 0;
     scaleFactor = 1;
+
     getScale(scaleFactor);
+    scaleButtons.removeClass("active");
+    scale.find(".default").addClass("active");
   });
   
   containerIn.mousemove(function(e) {
@@ -72,7 +82,7 @@ $(document).ready(function() {
             "height": newHeight + "px"
           });
           curBox.attr("data-width", newWidth).attr("data-height", newHeight);
-          boxInfo.html('width: ' + Math.ceil(newWidth) + 'px; <br /> height: ' + Math.ceil(newHeight) + 'px;');
+          boxInfo.html('W: ' + Math.ceil(newWidth) + '<br /> H: ' + Math.ceil(newHeight));
         });
       }
       
@@ -98,5 +108,14 @@ $(document).ready(function() {
         "top": relY,
       }).appendTo(containerIn);
     }
+    var elements = $(".box, .spot");
+    elements.click(function(){
+      if($("#removeTool").is(":checked")){
+        $(this).remove();
+      }
+    });
+
   });
+
+
 });
