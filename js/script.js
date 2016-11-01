@@ -1,33 +1,34 @@
 $(document).ready(function() {
   var el = $(".container");
   var containerIn = $(".container-in");
-  var reset = $(".reset");
-  var msg = '';
+
   var boxCount = 0;
   var spotCount = 0;
   var clickCount = 0;
-  
+  var reset = $(".reset");
+  var removeTool = $("#removeTool");
   var scale = $(".scale");
   var scaleButtons = scale.find(".button");
+  
   var boxInfo = $(".box-info");
   var cursorInfo = $(".cursor-info");
-  
+  var elements;
   var scaleFactor = 1;
 
-  var getScale = function(num){
+  // set scale
+  var setScale = function(num){
     el.css({"transform": "scale(" + num + ")"}).parent().scrollLeft(0).scrollTop(0);
   };
 
+  // clicking on scale buttons
   scaleButtons.click(function(){
     scaleButtons.removeClass("active");
     $(this).addClass("active");
-  });
-
-  scale.find('button').click(function(){
     scaleFactor = $(this).data("scale");
-    getScale(scaleFactor);
+    setScale(scaleFactor);
   });
 
+  // clicking on reset button
   reset.click(function() {
     containerIn.add(boxInfo).html('');
 
@@ -35,15 +36,17 @@ $(document).ready(function() {
     spotCount = 0;
     scaleFactor = 1;
 
-    getScale(scaleFactor);
+    setScale(scaleFactor);
     scaleButtons.removeClass("active");
     scale.find(".default").addClass("active");
   });
   
+  // getting the X, Y of the cursor
   containerIn.mousemove(function(e) {
     cursorInfo.html('X: ' + Math.ceil(e.pageX/scaleFactor) + '<br /> Y: ' + Math.ceil(e.pageY/scaleFactor));
   });
 
+  // setting the class to container according to tool
   $(".tools").find("input").click(function(){
     if($(this).is(":checked")){
       el.attr("class", "");
@@ -51,8 +54,10 @@ $(document).ready(function() {
     };
   });
   
-
+  // click on the container
   el.click(function(e) {
+
+    // measuring the size
     if($("#sizeTool").is(":checked")){
       clickCount++;
       if(clickCount == 1) {
@@ -98,6 +103,8 @@ $(document).ready(function() {
          }
       }
     }//if($("#sizeTool").is(":checked"))
+
+    // setting the spot
     if($("#spotTool").is(":checked")){
       var parentOffset = $(this).offset();
       var relX = (e.pageX - parentOffset.left)/scaleFactor;
@@ -108,14 +115,24 @@ $(document).ready(function() {
         "top": relY,
       }).appendTo(containerIn);
     }
-    var elements = $(".box, .spot");
-    elements.click(function(){
-      if($("#removeTool").is(":checked")){
-        $(this).remove();
-      }
-    });
-
   });
+  
+  //getting the boxes and spots
+  removeTool.click(function(){
+    var elements = $(".box, .spot");
+
+    //removing boxes and spots
+    if(elements.length != 0){
+      elements.click(function(){
+        if(removeTool.is(":checked")){
+          $(this).remove();
+        }
+      });
+    }
+  });
+  
+
+
 
 
 });
