@@ -1,5 +1,5 @@
 {
-  "name": "Animated columns",
+  "name": "Specs on image v2",
   "version": "1.0.0",
   "description": "Animated columns of images",
   "main": "gulpfile.js",
@@ -18,12 +18,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fret2buzz/ac.git"
+    "url": "git+https://github.com/fret2buzz/soi2.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/fret2buzz/ac.github.io/issues"
-  },
-  "homepage": "https://github.com/fret2buzz/ac.github.io#readme"
+    "url": "https://github.com/fret2buzz/soi2/issues"
+  }
 }

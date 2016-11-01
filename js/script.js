@@ -1,66 +1,102 @@
 $(document).ready(function() {
-  var el = $("#image");
+  var el = $(".container");
+  var containerIn = $(".container-in");
   var reset = $(".reset");
   var msg = '';
   var boxCount = 0;
+  var spotCount = 0;
   var clickCount = 0;
-  var scaleInput = $("#scale");
-
+  
+  var scale = $(".scale");
+  var boxInfo = $(".box-info");
+  var cursorInfo = $(".cursor-info");
+  
   var scaleFactor = 1;
-  var getScale = function(){
-    scaleFactor = scaleInput.val();
-    el.css({
-      "transform": "scale(" + scaleFactor + ")"
-    });
-    el.parent().scrollLeft( 0 ).scrollTop( 0 );
+
+  var getScale = function(num){
+    el.css({"transform": "scale(" + num + ")"}).parent().scrollLeft(0).scrollTop(0);
   };
-  scaleInput.on("change", function(){
-    getScale();
+
+  scale.find('button').click(function(){
+    scaleFactor = $(this).data("scale");
+    getScale(scaleFactor);
   });
+
   reset.click(function() {
-    el.html('');
+    containerIn.add(boxInfo).html('');
     boxCount = 0;
-    scaleInput.val(1);
-    getScale();
-    console.log(scaleInput.val());
+    spotCount = 0;
+    scaleFactor = 1;
+    getScale(scaleFactor);
   });
+  
+  containerIn.mousemove(function(e) {
+    cursorInfo.html('X: ' + Math.ceil(e.pageX/scaleFactor) + '<br /> Y: ' + Math.ceil(e.pageY/scaleFactor));
+  });
+
+  $(".tools").find("input").click(function(){
+    if($(this).is(":checked")){
+      el.attr("class", "");
+      el.addClass("container " + $(this).attr("data-cursor"));
+    };
+  });
+  
+
   el.click(function(e) {
-    clickCount++;
-    if(clickCount == 1) {
-      console.log('first');
+    if($("#sizeTool").is(":checked")){
+      clickCount++;
+      if(clickCount == 1) {
+        console.log('first');
+        var parentOffset = $(this).offset();
+        var relX = (e.pageX - parentOffset.left)/scaleFactor;
+        var relY = (e.pageY - parentOffset.top)/scaleFactor;
+        boxCount++;
+        var curBox = $('<div class="box box-' + boxCount + '"></div>').css({
+          "left": relX,
+          "top": relY,
+        }).appendTo(containerIn);
+        
+        $(this).mousemove(function(e) {
+          var newWidth = (e.pageX - parentOffset.left)/scaleFactor - relX;
+          var newHeight = (e.pageY - parentOffset.top)/scaleFactor - relY;
+          var negativeCalc = function(size){
+           if(size < 0){
+            size = 0;
+           };
+           return size;
+          };
+          newWidth = negativeCalc(newWidth);
+          newHeight = negativeCalc(newHeight);
+          curBox.css({  
+            "width": newWidth + "px",
+            "height": newHeight + "px"
+          });
+          curBox.attr("data-width", newWidth).attr("data-height", newHeight);
+          boxInfo.html('width: ' + Math.ceil(newWidth) + 'px; <br /> height: ' + Math.ceil(newHeight) + 'px;');
+        });
+      }
+      
+      if(clickCount == 2){
+         console.log('second');
+         $(this).off("mousemove");
+         clickCount = 0;
+         curBox = $(".box-" + boxCount);
+         
+         if(curBox.attr("data-width") == 0 ||  curBox.attr("data-height") == 0){
+            curBox.remove();
+            boxCount--;
+         }
+      }
+    }//if($("#sizeTool").is(":checked"))
+    if($("#spotTool").is(":checked")){
       var parentOffset = $(this).offset();
       var relX = (e.pageX - parentOffset.left)/scaleFactor;
       var relY = (e.pageY - parentOffset.top)/scaleFactor;
-      boxCount++;
-      var curBox = $('<div class="box box-' + boxCount + '">').css({
+      spotCount++;
+      var spotBox = $('<div class="spot spot-' + spotCount + '"><span class="spot-in"></span></div>').css({
         "left": relX,
         "top": relY,
-      }).appendTo($(this));
-      $(this).mousemove(function(e) {
-        var newWidth = (e.pageX - parentOffset.left)/scaleFactor - relX;
-        var newHeight = (e.pageY - parentOffset.top)/scaleFactor - relY;
-        var negativeCalc = function(size){
-         if(size < 0){
-          size = 0;
-         };
-         return size;
-        };
-        newWidth = negativeCalc(newWidth);
-        newHeight = negativeCalc(newHeight);
-        curBox.css({  
-          "width": newWidth + "px",
-          "height": newHeight + "px"
-        }).html(Math.ceil(newWidth) + 'x' + Math.ceil(newHeight));
-
-        //console.log(e.pageX, e.pageY);
-      });
+      }).appendTo(containerIn);
     }
-    
-    if(clickCount == 2){
-       console.log('second');
-       $(this).off("mousemove");
-       clickCount = 0;
-    }
-
   });
 });

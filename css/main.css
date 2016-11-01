@@ -12,17 +12,20 @@ body {
 	height: 100%;
 }
 
-.container {
-	width: 100%;
-	height: 100%;
+body {
 	overflow: auto;
 	background: #ccc;
+	font-family: 'Helvetica', 'Arial', sans-serif;
+	font-size: 12px;
 }
-.container #image {
-	background: url(https://dl.dropboxusercontent.com/u/3739354/sketch7_by_est1978-d9mhq02.png);
+
+.container {
 	width: 600px;
 	height: 1041px;
-	position: relative;
+	background-image: url('https://dl.dropboxusercontent.com/u/3739354/sketch7_by_est1978-d9mhq02.png');
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	background-color: #fff;
 	-webkit-transform: scale(1);
 	transform: scale(1);
 	-webkit-transform-origin: left top;
@@ -31,6 +34,16 @@ body {
 	image-rendering: -moz-crisp-edges;
 	image-rendering: -o-pixelated;
 	image-rendering: pixelated;
+}
+.container-in {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+.container.cursor-pointer {
+	cursor: pointer;
+}
+.container.cursor-crosshair {
 	cursor: crosshair;
 }
 
@@ -38,21 +51,57 @@ body {
 	padding: 10px;
 }
 
-.reset {
+.tools {
+	margin: 0 0 10px;
+}
+
+.menu {
 	position: fixed;
-	left: 10px;
-	top: 10px;
+	right: 20px;
+	top: 20px;
 	z-index: 10;
 }
 
-#scale {
-	position: fixed;
-	right: 10px;
-	top: 10px;
-	z-index: 10;
+.box-info,
+.cursor-info {
+	margin: 10px 0 0;
+	padding: 5px;
+	background: rgba(204, 204, 204, 0.3);
+}
+.box-info:empty,
+.cursor-info:empty {
+	display: none;
 }
 
 .box {
 	position: absolute;
 	background: rgba(44, 86, 157, 0.5);
+}
+
+.spot {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+}
+.spot-in {
+	background: rgba(44, 86, 157, 0.8);
+	border-radius: 50%;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 28px;
+	height: 28px;
+	margin: -14px 0 0 -14px;
+}
+.spot-in:after {
+	content: '';
+	width: 40%;
+	height: 40%;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	border-radius: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
 }
