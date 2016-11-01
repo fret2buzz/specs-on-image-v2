@@ -19,13 +19,32 @@ body {
 }
 
 body {
-	overflow: auto;
-	background: #ccc;
 	font-family: 'Helvetica', 'Arial', sans-serif;
 	font-size: 12px;
 }
 
 .container {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-flow: row wrap;
+	-ms-flex-flow: row wrap;
+	flex-flow: row wrap;
+	-webkit-align-content: stretch;
+	-ms-flex-line-pack: stretch;
+	align-content: stretch;
+	height: 100%;
+}
+
+.main {
+	height: 100%;
+	overflow: auto;
+	width: 60%;
+	background: #ccc;
+}
+
+.photo {
 	width: 600px;
 	height: 1041px;
 	background-image: url('https://dl.dropboxusercontent.com/u/3739354/sketch7_by_est1978-d9mhq02.png');
@@ -41,28 +60,26 @@ body {
 	image-rendering: -o-pixelated;
 	image-rendering: pixelated;
 }
-.container-in {
+.photo-in {
 	width: 100%;
 	height: 100%;
 	position: relative;
 }
-.container.cursor-pointer {
+.photo.cursor-pointer {
 	cursor: pointer;
 }
-.container.cursor-crosshair {
+.photo.cursor-crosshair {
 	cursor: crosshair;
 }
-.container.cursor-default .box:hover,
-.container.cursor-default .spot-in:hover {
+.photo.cursor-default .box:hover,
+.photo.cursor-default .spot-in:hover {
 	background: rgba(255, 0, 255, 0.5);
 }
 
 .menu {
-	position: fixed;
-	right: 20px;
-	top: 20px;
-	z-index: 10;
-	min-width: 30%;
+	width: 40%;
+	padding: 20px;
+	background: rgba(44, 86, 157, 0.2);
 }
 
 .info {

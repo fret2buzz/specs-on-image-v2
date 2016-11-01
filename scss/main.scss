@@ -25,8 +25,6 @@ body {
 }
 
 body {
-  overflow: auto;
-  background: $colorGrey;
   font-family: 'Helvetica', 'Arial', sans-serif;
   font-size: 12px;
 }
@@ -34,6 +32,20 @@ body {
 $bg: 'https://dl.dropboxusercontent.com/u/3739354/sketch7_by_est1978-d9mhq02.png';
 
 .container {
+  display: flex;
+  flex-flow: row wrap;
+  align-content: stretch;
+  height: 100%;
+}
+
+.main {
+  height: 100%;
+  overflow: auto;
+  width: 60%;
+  background: $colorGrey;
+}
+
+.photo {
   width: 600px;
   height: 1041px;
   background-image: url($bg);
@@ -64,11 +76,9 @@ $bg: 'https://dl.dropboxusercontent.com/u/3739354/sketch7_by_est1978-d9mhq02.png
 }
 
 .menu {
-  position: fixed;
-  right: 20px;
-  top: 20px;
-  z-index: 10;
-  min-width: 30%;
+  width: 40%;
+  padding: 20px;
+  background: rgba($colorBlue, 0.2);
 }
 
 .info {
