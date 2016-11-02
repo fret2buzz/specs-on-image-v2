@@ -3,6 +3,7 @@ $colorBlue: rgb(44, 86, 157);
 $colorBlack: rgb(0, 0, 0);
 $colorWhite: rgb(255, 255, 255);
 $colorPink: rgb(255, 0, 255);
+$colorRed: rgb(255, 75, 60);
 
 *,
 *:after,
@@ -70,6 +71,12 @@ body {
       background: rgba($colorPink, 0.5);
     }
   }
+  &.cursor-cell {
+    .box:hover,
+    .spot-in:hover {
+      background: rgba($colorPink, 0.5);
+    }
+  }
 }
 
 .menu {
@@ -108,22 +115,26 @@ body {
   height: 1px;
   &-in {
     background: rgba($colorBlue, 0.8);
-    border-radius: 50%;
+    border-radius: 999px;
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     margin: -14px 0 0 -14px;
     &:after {
-      content: '';
-      width: 40%;
-      height: 40%;
-      background: $colorWhite;
+      content: attr(data-id);
+      width: 100%;
+      height: 100%;
+      line-height: 30px;
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
       position: absolute;
+      color: $colorWhite;
       left: 50%;
       top: 50%;
-      border-radius: 50%;
+      border-radius: 999px;
       transform: translate(-50%, -50%);
     }
   }
@@ -166,7 +177,7 @@ body {
     background: $colorWhite;
     border: 0;
     padding: 5px 12px;
-    font-size: 16px;
+    font-size: 13px;
     border: 1px solid $colorBlack;
     border-right: 0;
     cursor: pointer;

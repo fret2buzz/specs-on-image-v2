@@ -75,6 +75,10 @@ body {
 .photo.cursor-default .spot-in:hover {
 	background: rgba(255, 0, 255, 0.5);
 }
+.photo.cursor-cell .box:hover,
+.photo.cursor-cell .spot-in:hover {
+	background: rgba(255, 0, 255, 0.5);
+}
 
 .menu {
 	width: 40%;
@@ -113,23 +117,27 @@ body {
 }
 .spot-in {
 	background: rgba(44, 86, 157, 0.8);
-	border-radius: 50%;
+	border-radius: 999px;
 	position: absolute;
 	left: 50%;
 	top: 50%;
-	width: 28px;
-	height: 28px;
+	width: 30px;
+	height: 30px;
 	margin: -14px 0 0 -14px;
 }
 .spot-in:after {
-	content: '';
-	width: 40%;
-	height: 40%;
-	background: white;
+	content: attr(data-id);
+	width: 100%;
+	height: 100%;
+	line-height: 30px;
+	font-size: 16px;
+	font-weight: 700;
+	text-align: center;
 	position: absolute;
+	color: white;
 	left: 50%;
 	top: 50%;
-	border-radius: 50%;
+	border-radius: 999px;
 	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 }
@@ -172,7 +180,7 @@ body {
 	background: white;
 	border: 0;
 	padding: 5px 12px;
-	font-size: 16px;
+	font-size: 13px;
 	border: 1px solid black;
 	border-right: 0;
 	cursor: pointer;

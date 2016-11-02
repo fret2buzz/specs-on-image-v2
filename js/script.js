@@ -12,7 +12,8 @@ $(document).ready(function() {
   
   var boxInfo = $(".box-info");
   var cursorInfo = $(".cursor-info");
-  var elements;
+  var elementsBox;
+  var elementsSpot;
   var scaleFactor = 1;
 
   // set scale
@@ -24,7 +25,7 @@ $(document).ready(function() {
   scaleButtons.click(function(){
     scaleButtons.removeClass("active");
     $(this).addClass("active");
-    scaleFactor = $(this).data("scale");
+    scaleFactor = $(this).attr("data-scale");
     setScale(scaleFactor);
   });
 
@@ -137,7 +138,7 @@ $(document).ready(function() {
       var relX = (e.pageX - parentOffset.left)/scaleFactor;
       var relY = (e.pageY - parentOffset.top)/scaleFactor;
       spotCount++;
-      var spotBox = $('<div class="spot spot-' + spotCount + '"><span class="spot-in"></span></div>').css({
+      var spotBox = $('<div class="spot"><span class="spot-in" data-id="'+spotCount+'"></span></div>').css({
         "left": relX,
         "top": relY,
       }).appendTo(photoIn);
@@ -146,13 +147,28 @@ $(document).ready(function() {
   
   //getting the boxes and spots
   removeTool.click(function(){
-    var elements = $(".box, .spot");
+    elementsBox = $(".box");
+    elementsSpot = $(".spot");
 
-    //removing boxes and spots
-    if(elements.length != 0){
-      elements.click(function(){
+    //removing boxes
+    if(elementsBox.length != 0){
+      elementsBox.click(function(){
         if(removeTool.is(":checked")){
           $(this).remove();
+        }
+      });
+    }
+    //removing spots
+    if(elementsSpot.length != 0){
+      elementsSpot.click(function(){
+        if(removeTool.is(":checked")){
+          $(this).remove();
+          var i = 0;
+          $(".spot").each(function(){
+            spotCount = i;
+            i++;
+            $(this).find(".spot-in").attr("data-id", i);
+          });
         }
       });
     }
