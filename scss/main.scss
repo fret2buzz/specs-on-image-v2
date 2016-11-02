@@ -72,9 +72,11 @@ body {
     }
   }
   &.cursor-cell {
-    .box:hover,
     .spot-in:hover {
       background: rgba($colorPink, 0.5);
+    }
+    .active .spot-in {
+      background: $colorRed;
     }
   }
 }
@@ -85,22 +87,22 @@ body {
   background: rgba($colorBlue, 0.2);
 }
 
-.info {
+.coordinates {
   overflow: hidden;
   font-family: 'Courier New', sans-serif;
   font-size: 14px;
 }
 
-.box-info,
-.cursor-info {
+.coordinates-box,
+.coordinates-cursor {
   width: 49%;
 }
 
-.box-info {
+.coordinates-box {
   float: left;
 }
 
-.cursor-info {
+.coordinates-cursor {
   float: right;
 }
 
@@ -138,6 +140,17 @@ body {
       transform: translate(-50%, -50%);
     }
   }
+  &.has-info .spot-in:before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    right: -4px;
+    top: -4px;
+    background: $colorRed;
+    font-size: 0;
+    border-radius: 999px;
+  }
 }
 
 .line {
@@ -147,6 +160,28 @@ body {
   &:first-child {
     padding: 0;
   }
+}
+
+.label {
+  display: block;
+  padding: 0 0 5px;
+}
+
+.input {
+  width: 100%;
+  font-family: 'Courier New', sans-serif;
+  font-size: 14px;
+  border: 1px solid $colorGrey;
+  padding: 5px;
+  resize: none;
+  &:focus {
+    outline: none;
+    border: 1px solid $colorRed;
+  }
+}
+
+.info {
+  display: none;
 }
 
 .buttons-line {

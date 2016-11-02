@@ -75,9 +75,11 @@ body {
 .photo.cursor-default .spot-in:hover {
 	background: rgba(255, 0, 255, 0.5);
 }
-.photo.cursor-cell .box:hover,
 .photo.cursor-cell .spot-in:hover {
 	background: rgba(255, 0, 255, 0.5);
+}
+.photo.cursor-cell .active .spot-in {
+	background: #ff4b3c;
 }
 
 .menu {
@@ -86,22 +88,22 @@ body {
 	background: rgba(44, 86, 157, 0.2);
 }
 
-.info {
+.coordinates {
 	overflow: hidden;
 	font-family: 'Courier New', sans-serif;
 	font-size: 14px;
 }
 
-.box-info,
-.cursor-info {
+.coordinates-box,
+.coordinates-cursor {
 	width: 49%;
 }
 
-.box-info {
+.coordinates-box {
 	float: left;
 }
 
-.cursor-info {
+.coordinates-cursor {
 	float: right;
 }
 
@@ -141,6 +143,17 @@ body {
 	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 }
+.spot.has-info .spot-in:before {
+	content: '';
+	width: 8px;
+	height: 8px;
+	position: absolute;
+	right: -4px;
+	top: -4px;
+	background: #ff4b3c;
+	font-size: 0;
+	border-radius: 999px;
+}
 
 .line {
 	overflow: hidden;
@@ -149,6 +162,28 @@ body {
 }
 .line:first-child {
 	padding: 0;
+}
+
+.label {
+	display: block;
+	padding: 0 0 5px;
+}
+
+.input {
+	width: 100%;
+	font-family: 'Courier New', sans-serif;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	padding: 5px;
+	resize: none;
+}
+.input:focus {
+	outline: none;
+	border: 1px solid #ff4b3c;
+}
+
+.info {
+	display: none;
 }
 
 .buttons-line {

@@ -7,11 +7,12 @@ $(document).ready(function() {
 
   var reset = $(".reset");
   var removeTool = $("#removeTool");
+  var infoTool = $("#infoTool");
   var scale = $(".scale");
   var scaleButtons = scale.find(".button");
   
-  var boxInfo = $(".box-info");
-  var cursorInfo = $(".cursor-info");
+  var coordinatesBox = $(".coordinates-box");
+  var coordinatesCursor = $(".coordinates-cursor");
   var elementsBox;
   var elementsSpot;
   var scaleFactor = 1;
@@ -30,7 +31,7 @@ $(document).ready(function() {
   });
 
   var resetFunction = function(){
-    photoIn.add(boxInfo).html('');
+    photoIn.add(coordinatesBox).html('');
 
     boxCount = 0;
     spotCount = 0;
@@ -48,7 +49,7 @@ $(document).ready(function() {
   
   // getting the X, Y of the cursor
   photoIn.mousemove(function(e) {
-    cursorInfo.html('X: ' + Math.ceil(e.pageX/scaleFactor) + '<br /> Y: ' + Math.ceil(e.pageY/scaleFactor));
+    coordinatesCursor.html('X: ' + Math.ceil(e.pageX/scaleFactor) + '<br /> Y: ' + Math.ceil(e.pageY/scaleFactor));
   });
 
   // setting the class to container according to tool
@@ -114,7 +115,7 @@ $(document).ready(function() {
           "height": newHeight + "px"
         });
         curBox.attr("data-width", newWidth).attr("data-height", newHeight);
-        boxInfo.html('W: ' + Math.ceil(newWidth) + '<br /> H: ' + Math.ceil(newHeight));
+        coordinatesBox.html('W: ' + Math.ceil(newWidth) + '<br /> H: ' + Math.ceil(newHeight));
       });
 
     }
@@ -173,4 +174,52 @@ $(document).ready(function() {
       });
     }
   });
+
+  //setting the info for spot
+  infoTool.click(function(){
+    elementsSpot = $(".spot");
+
+    if(elementsSpot.length != 0){
+      elementsSpot.click(function(){
+        if(infoTool.is(":checked")){
+          elementsSpot.removeClass("active");
+          $(this).addClass("active");
+          var self = $(this);
+          var infoForm = $(".info");
+          var infoSubject = $("#infoSubject");
+          var infoDescription = $("#infoDescription");
+          var infoAddButton = $("#infoAddButton");
+          infoForm.show();
+
+          if(self.hasClass("has-info")){
+            infoSubject.val(self.attr("data-subject"));
+            infoDescription.val(self.attr("data-description"));
+          }
+
+          infoAddButton.click(function(){
+            if(self.hasClass("active")){
+
+              self.attr("data-subject", infoSubject.val());
+              self.attr("data-description", infoDescription.val());
+              
+              if(self.attr("data-subject") != '' || self.attr("data-description") != ''){
+                self.addClass("has-info")
+              } 
+              if(self.attr("data-subject") == '' && self.attr("data-description") == ''){
+                self.removeClass("has-info")
+              }
+
+              self.removeClass("active");
+              infoSubject.val('');
+              infoDescription.val('');
+              infoForm.hide();
+            };
+            
+          });
+        }
+      });
+    }
+
+  });
+
 });
