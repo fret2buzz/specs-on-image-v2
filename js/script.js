@@ -28,8 +28,7 @@ $(document).ready(function() {
     setScale(scaleFactor);
   });
 
-  // clicking on reset button
-  reset.click(function() {
+  var resetFunction = function(){
     photoIn.add(boxInfo).html('');
 
     boxCount = 0;
@@ -39,6 +38,11 @@ $(document).ready(function() {
     setScale(scaleFactor);
     scaleButtons.removeClass("active");
     scale.find(".default").addClass("active");
+  }
+
+  // clicking on reset button
+  reset.click(function() {
+    resetFunction();
   });
   
   // getting the X, Y of the cursor
@@ -53,7 +57,31 @@ $(document).ready(function() {
       photo.addClass("photo " + $(this).attr("data-cursor"));
     };
   });
-  
+
+  // choose image
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        var img = new Image();
+        img.src = e.target.result;
+        img.onload = function() {
+          $('#imageFile').attr('src', img.src).parent().css({
+            "width": img.width + "px",
+            "height": img.height + "px"
+          });
+        }
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $("#imageInput").change(function(){
+    readURL(this);
+    resetFunction();
+  });
+
   // click on the container
   photo.mousedown(function(e) {
 
