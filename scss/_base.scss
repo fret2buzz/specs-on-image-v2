@@ -1,0 +1,31 @@
+$colorGrey: rgb(204,204,204);
+$colorBlue: rgb(44, 86, 157);
+$colorGreen: rgb(127, 186, 0);
+$colorBlack: rgb(0, 0, 0);
+$colorWhite: rgb(255, 255, 255);
+$colorRed: rgb(255, 75, 60);
+
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  font-size: 12px;
+}

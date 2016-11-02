@@ -55,7 +55,10 @@ body {
 	image-rendering: -o-pixelated;
 	image-rendering: pixelated;
 }
-.photo img {
+.photo .photo-image {
+	width: 0;
+	height: 0;
+	display: block;
 	vertical-align: top;
 }
 .photo-in {
@@ -183,8 +186,27 @@ body {
 }
 
 .info,
-.generate {
+.generate,
+.download-link {
 	display: none;
+}
+
+.generate {
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	z-index: 10;
+	font-size: 18px;
+}
+.generate button {
+	font-size: 18px;
+	padding: 12px;
+}
+.generate button:focus {
+	outline: none;
+}
+.generate .download-link {
+	padding: 0 12px;
 }
 
 .line-buttons {

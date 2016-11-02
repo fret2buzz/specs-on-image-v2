@@ -1,33 +1,4 @@
-$colorGrey: rgb(204,204,204);
-$colorBlue: rgb(44, 86, 157);
-$colorBlack: rgb(0, 0, 0);
-$colorWhite: rgb(255, 255, 255);
-$colorRed: rgb(255, 75, 60);
-
-*,
-*:after,
-*:before {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-button::-moz-focus-inner,
-input::-moz-focus-inner {
-  padding: 0;
-  border: 0;
-}
-
-html,
-body {
-  width: 100%;
-  height: 100%;
-}
-
-body {
-  font-family: 'Helvetica', 'Arial', sans-serif;
-  font-size: 12px;
-}
+@import '_base.scss';
 
 .container {
   display: flex;
@@ -48,7 +19,10 @@ body {
   transform: scale(1);
   transform-origin: left top;
   image-rendering: pixelated;
-  img {
+  .photo-image {
+    width: 0;
+    height: 0;
+    display: block;
     vertical-align: top;
   }
   &-in {
@@ -180,8 +154,31 @@ body {
 }
 
 .info,
-.generate {
+.generate,
+.download-link {
   display: none;
+}
+
+.generate {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 10;
+  font-size: 18px;
+  button {
+    font-size: 18px;
+    padding: 12px;
+    // border: 0;
+    // color: $colorBlack;
+    // background: 0 0;
+    // cursor: pointer;
+    &:focus {
+      outline: none;
+    }
+  }
+  .download-link {
+    padding: 0 12px;
+  }
 }
 
 .line-buttons {

@@ -1,0 +1,174 @@
+@import '_base.scss';
+
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  align-content: stretch;
+  height: 100%;
+  overflow: hidden;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 400;
+  padding: 0 0 20px;
+  text-align: center;
+}
+
+.main {
+  width: 70%;
+  padding: 20px;
+  overflow: auto;
+  height: 100%;
+  background: rgba($colorGrey, 0.2);
+}
+
+.side {
+  width: 30%;
+  padding: 20px;
+  overflow: auto;
+  height: 100%;
+  background: rgba($colorBlue, 0.2);
+}
+
+.photo {
+  margin: 0 auto;
+  position: relative;
+  .photo-image {
+    width: 0;
+    height: 0;
+    display: block;
+    vertical-align: top;
+  }
+  &-in {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+
+.box {
+  position: absolute;
+  background: rgba(255,0,255,0.1);
+  &.w {
+    height: 17px !important;
+    border-left: 1px solid rgba(255,0,255,1);
+    border-right: 1px solid rgba(255,0,255,1);
+    &:after {
+      content: attr(data-width);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba($colorBlue, 0.8);
+      color: $colorWhite;
+      padding: 4px;
+      display: block;
+    }
+  }
+
+  &.h {
+    width: 17px !important;
+    border-top: 1px solid rgba(255,0,255,1);
+    border-bottom: 1px solid rgba(255,0,255,1);
+    &:after {
+      content: attr(data-height);
+      position: absolute;
+      top: 50%;
+      right: 100%;
+      transform: translateY(-50%);
+      background: rgba($colorBlue, 0.8);
+      color: $colorWhite;
+      padding: 4px;
+      display: block;
+    }
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background: rgba(255,0,255,1);
+  }
+
+  &.w:before {
+    width: 100%;
+    height: 1px;
+    left: 0;
+    top: 8px;
+  }
+
+  &.h:before {
+    width: 1px;
+    height: 100%;
+    left: 8px;
+    top: 0;
+  }
+}
+
+.spot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  &-in {
+    background: rgba($colorBlue, 0.8);
+    border-radius: 999px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    margin: -14px 0 0 -14px;
+    &:after {
+      content: attr(data-id);
+      width: 100%;
+      height: 100%;
+      line-height: 30px;
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      position: absolute;
+      color: $colorWhite;
+      left: 50%;
+      top: 50%;
+      border-radius: 999px;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+.line {
+  padding: 20px 0 0;
+  &:first-child {
+    padding-top: 0;
+  }
+  overflow: hidden;
+  .id {
+    float: left;
+    font-size: 16px;
+    font-weight: 700;
+    margin-right: 15px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    background: rgba($colorBlue, 0.8);
+    border-radius: 999px;
+    color: $colorWhite;
+    text-align: center;
+  }
+}
+
+.list {
+  overflow: hidden;
+  .subject {
+    font-size: 16px;
+    padding: 0 0 5px;
+    font-weight: 700;
+  }
+  .description {
+    font-size: 14px;
+  }
+}

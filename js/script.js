@@ -7,6 +7,9 @@ $(document).ready(function() {
 
   var reset = $(".reset");
   var generate = $(".generate");
+  var generateButton = $("#generateHTML");
+  var downloadLink = $("#downloadLink");
+  var htmlFile = null;
 
   var removeTool = $("#removeTool");
   var infoTool = $("#infoTool");
@@ -38,10 +41,11 @@ $(document).ready(function() {
     boxCount = 0;
     spotCount = 0;
     scaleFactor = 1;
-
     setScale(scaleFactor);
     scaleButtons.removeClass("active");
     scale.find(".default").addClass("active");
+    generate.hide();
+    downloadLink.hide();
   }
 
   // clicking on reset button
@@ -71,7 +75,10 @@ $(document).ready(function() {
         var img = new Image();
         img.src = e.target.result;
         img.onload = function() {
-          $('#imageFile').attr('src', img.src).parent().css({
+          var image = $('#imageFile');
+          var imageParent = image.parent();
+          image.attr('src', img.src);
+          image.add(imageParent).css({
             "width": img.width + "px",
             "height": img.height + "px"
           });
@@ -115,7 +122,8 @@ $(document).ready(function() {
           "width": newWidth + "px",
           "height": newHeight + "px"
         });
-        curBox.attr("data-width", newWidth).attr("data-height", newHeight);
+
+        curBox.attr("data-width", Math.ceil(newWidth)).attr("data-height", Math.ceil(newHeight));
         coordinatesBox.html('W: ' + Math.ceil(newWidth) + '<br /> H: ' + Math.ceil(newHeight));
       });
     }
@@ -124,8 +132,16 @@ $(document).ready(function() {
        // console.log('second');
        $(this).off("mousemove");
        curBox = $(".box-" + boxCount);
-       
-       if(curBox.attr("data-width") == 0 || curBox.attr("data-height") == 0 || curBox.attr("data-width") == undefined || curBox.attr("data-height") == undefined){
+       // check if horizontal or vertical
+       var dataWidth = curBox.attr("data-width");
+       var dataHeight = curBox.attr("data-height");
+       if(+dataWidth > +dataHeight){
+         curBox.addClass("w");
+       } else {
+         curBox.addClass("h");
+       }
+       // remove from DOM
+       if(dataWidth == 0 || dataHeight == 0 || dataWidth == undefined || dataHeight == undefined){
           curBox.remove();
           boxCount--;
        }
@@ -146,6 +162,7 @@ $(document).ready(function() {
       generate.show();
     } else {
       generate.hide();
+      downloadLink.hide();
     }
   });
   
@@ -162,8 +179,8 @@ $(document).ready(function() {
           var i = 0;
           boxCount = 0;
           $(".box").each(function(){
-            boxCount = i;
             i++;
+            boxCount = i;
             $(this).attr("class", "box box-" + i);
           });
         }
@@ -177,8 +194,8 @@ $(document).ready(function() {
           var i = 0;
           spotCount = 0;
           $(".spot").each(function(){
-            spotCount = i;
             i++;
+            spotCount = i;
             $(this).find(".spot-in").attr("data-id", i);
           });
         }
@@ -225,12 +242,51 @@ $(document).ready(function() {
               infoDescription.val('');
               infoForm.hide();
             };
-            
           });
         }
       });
     }
+  });
 
+  // generate HTML
+  makeHTMLFile = function (html) {
+    var data = new Blob([html], {type: 'text/html'});
+
+    // If we are replacing a previously generated file we need to
+    // manually revoke the object URL to avoid memory leaks.
+    if (htmlFile !== null) {
+      window.URL.revokeObjectURL(htmlFile);
+    }
+
+    htmlFile = window.URL.createObjectURL(data);
+
+    return htmlFile;
+  };
+
+  generateButton.click(function(){
+    scaleFactor = 1;
+    setScale(scaleFactor);
+    var filename = $('#imageInput').val().split('\\').pop();
+    var htmlHeader = '<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <title>'+filename+' - Generated HTML</title> <link rel="stylesheet" href="css/view.css" /> </script> <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"> </head> <body> <div class="container">';
+    var htmlFooter = '</div></body></html>';
+    var htmlMain = '<div class="main">'+$(".main").html()+'</div>';
+    var htmlInformation = function(){
+      var elementsSpot = $(".spot");
+      var text = '';
+      elementsSpot.each(function(){
+        var htmlId = $(this).find(".spot-in").attr("data-id");
+        var htmlSubject = $(this).attr("data-subject");
+        var htmlDescription = $(this).attr("data-description");
+        if(htmlSubject != undefined || htmlDescription != undefined){
+          text = text + '<div class="line"><span class="id">' + htmlId + '</span><dl class="list"><dt class="subject">' + htmlSubject + '</dt><dd class="description">' + htmlDescription + '</dd></dl></div>';
+        }
+      });
+      return text;
+    };
+    var htmlSide = '<div class="side"><h1 class="filename">'+filename+'</h1><div class="lines">'+htmlInformation()+'</div></div>';
+    var html = htmlHeader + htmlMain + htmlSide + htmlFooter;
+    var link = $('#downloadLink');
+    link.attr("href", makeHTMLFile(html)).css("display", "block");
   });
 
 });
