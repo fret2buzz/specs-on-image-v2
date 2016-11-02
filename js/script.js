@@ -6,6 +6,8 @@ $(document).ready(function() {
   var spotCount = 0;
 
   var reset = $(".reset");
+  var generate = $(".generate");
+
   var removeTool = $("#removeTool");
   var infoTool = $("#infoTool");
   var scale = $(".scale");
@@ -86,7 +88,6 @@ $(document).ready(function() {
 
   // click on the container
   photo.mousedown(function(e) {
-
     // measuring the size
     if($("#sizeTool").is(":checked")){
       // console.log('first');
@@ -117,17 +118,14 @@ $(document).ready(function() {
         curBox.attr("data-width", newWidth).attr("data-height", newHeight);
         coordinatesBox.html('W: ' + Math.ceil(newWidth) + '<br /> H: ' + Math.ceil(newHeight));
       });
-
     }
-
-
   }).mouseup(function() {
     if($("#sizeTool").is(":checked")){
        // console.log('second');
        $(this).off("mousemove");
        curBox = $(".box-" + boxCount);
        
-       if(curBox.attr("data-width") == 0 ||  curBox.attr("data-height") == 0){
+       if(curBox.attr("data-width") == 0 || curBox.attr("data-height") == 0 || curBox.attr("data-width") == undefined || curBox.attr("data-height") == undefined){
           curBox.remove();
           boxCount--;
        }
@@ -144,6 +142,11 @@ $(document).ready(function() {
         "top": relY,
       }).appendTo(photoIn);
     }
+    if($(".box").length>0 || $(".spot").length > 0) {
+      generate.show();
+    } else {
+      generate.hide();
+    }
   });
   
   //getting the boxes and spots
@@ -156,6 +159,13 @@ $(document).ready(function() {
       elementsBox.click(function(){
         if(removeTool.is(":checked")){
           $(this).remove();
+          var i = 0;
+          boxCount = 0;
+          $(".box").each(function(){
+            boxCount = i;
+            i++;
+            $(this).attr("class", "box box-" + i);
+          });
         }
       });
     }
@@ -165,6 +175,7 @@ $(document).ready(function() {
         if(removeTool.is(":checked")){
           $(this).remove();
           var i = 0;
+          spotCount = 0;
           $(".spot").each(function(){
             spotCount = i;
             i++;

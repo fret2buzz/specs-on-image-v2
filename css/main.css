@@ -73,10 +73,10 @@ body {
 }
 .photo.cursor-default .box:hover,
 .photo.cursor-default .spot-in:hover {
-	background: rgba(255, 0, 255, 0.5);
+	background: rgba(0, 0, 0, 0.9);
 }
 .photo.cursor-cell .spot-in:hover {
-	background: rgba(255, 0, 255, 0.5);
+	background: rgba(0, 0, 0, 0.9);
 }
 .photo.cursor-cell .active .spot-in {
 	background: #ff4b3c;
@@ -182,18 +182,19 @@ body {
 	border: 1px solid #ff4b3c;
 }
 
-.info {
+.info,
+.generate {
 	display: none;
 }
 
-.buttons-line {
+.line-buttons {
 	font-size: 0;
 	white-space: nowrap;
 }
-.buttons-line:first-child {
+.line-buttons:first-child {
 	padding: 0;
 }
-.buttons-line input {
+.line-buttons input {
 	opacity: 0;
 	position: absolute;
 	left: 0;
@@ -201,16 +202,16 @@ body {
 	width: 0;
 	height: 0;
 }
-.buttons-line input:first-child + label {
+.line-buttons input:first-child + label {
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
 }
-.buttons-line input:checked + label {
+.line-buttons input:checked + label {
 	background: #2c569d;
 	color: white;
 }
-.buttons-line label,
-.buttons-line .button {
+.line-buttons label,
+.line-buttons .button {
 	display: inline-block;
 	background: white;
 	border: 0;
@@ -220,22 +221,22 @@ body {
 	border-right: 0;
 	cursor: pointer;
 }
-.buttons-line label.active,
-.buttons-line .button.active {
+.line-buttons label.active,
+.line-buttons .button.active {
 	background: #2c569d;
 	color: white;
 }
-.buttons-line label:focus,
-.buttons-line .button:focus {
+.line-buttons label:focus,
+.line-buttons .button:focus {
 	outline: none;
 }
-.buttons-line label:first-child,
-.buttons-line .button:first-child {
+.line-buttons label:first-child,
+.line-buttons .button:first-child {
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
 }
-.buttons-line label:last-child,
-.buttons-line .button:last-child {
+.line-buttons label:last-child,
+.line-buttons .button:last-child {
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
 	border-right: 1px solid black;

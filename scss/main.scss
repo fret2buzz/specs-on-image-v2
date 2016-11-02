@@ -2,7 +2,6 @@ $colorGrey: rgb(204,204,204);
 $colorBlue: rgb(44, 86, 157);
 $colorBlack: rgb(0, 0, 0);
 $colorWhite: rgb(255, 255, 255);
-$colorPink: rgb(255, 0, 255);
 $colorRed: rgb(255, 75, 60);
 
 *,
@@ -68,12 +67,12 @@ body {
   &.cursor-default {
     .box:hover,
     .spot-in:hover {
-      background: rgba($colorPink, 0.5);
+      background: rgba($colorBlack, 0.9);
     }
   }
   &.cursor-cell {
     .spot-in:hover {
-      background: rgba($colorPink, 0.5);
+      background: rgba($colorBlack, 0.9);
     }
     .active .spot-in {
       background: $colorRed;
@@ -180,11 +179,12 @@ body {
   }
 }
 
-.info {
+.info,
+.generate {
   display: none;
 }
 
-.buttons-line {
+.line-buttons {
   font-size: 0;
   white-space: nowrap;
   &:first-child {
