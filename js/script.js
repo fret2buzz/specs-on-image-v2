@@ -13,6 +13,7 @@ $(document).ready(function() {
 
   var removeTool = $("#removeTool");
   var infoTool = $("#infoTool");
+  var settingsTool = $("#settingsTool");
   var scale = $(".scale");
   var scaleButtons = scale.find(".button");
   
@@ -231,16 +232,57 @@ $(document).ready(function() {
               self.attr("data-description", infoDescription.val());
               
               if(self.attr("data-subject") != '' || self.attr("data-description") != ''){
-                self.addClass("has-info")
+                self.addClass("has-info");
               } 
               if(self.attr("data-subject") == '' && self.attr("data-description") == ''){
-                self.removeClass("has-info")
+                self.removeClass("has-info");
               }
 
               self.removeClass("active");
               infoSubject.val('');
               infoDescription.val('');
               infoForm.hide();
+            };
+          });
+        }
+      });
+    }
+  });
+
+  //customize spot
+  settingsTool.click(function(){
+    elementsSpot = $(".spot");
+
+    if(elementsSpot.length != 0){
+      elementsSpot.click(function(){
+        if(settingsTool.is(":checked")){
+          elementsSpot.removeClass("active");
+          $(this).addClass("active");
+          var self = $(this);
+          var settingsForm = $(".settings");
+          var settingsColor = $("#settingsColor");
+          var settingsUpdateButton = $("#settingsUpdateButton");
+          settingsForm.show();
+
+          if(self.hasClass("has-info")){
+            settingsColor.val(self.attr("data-color"));
+          }
+
+          settingsUpdateButton.click(function(){
+            if(self.hasClass("active")){
+
+              self.attr("data-color", settingsColor.val());
+
+              if(self.attr("data-color") != ''){
+                self.addClass("has-info");
+                self.children("span").css("background-color", self.attr("data-color"));
+              } else {
+                self.removeClass("has-info");
+              }
+
+              self.removeClass("active");
+              settingsColor.val('');
+              settingsForm.hide();
             };
           });
         }

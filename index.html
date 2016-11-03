@@ -27,6 +27,7 @@
         <input type="radio" id="spotTool" data-cursor="cursor-pointer" name="tools" /><label for="spotTool">Hotspot</label>
         <input type="radio" id="removeTool" data-cursor="cursor-default" name="tools" /><label for="removeTool">Remove</label>
         <input type="radio" id="infoTool" data-cursor="cursor-cell" name="tools" /><label for="infoTool">Information</label>
+        <input type="radio" id="settingsTool" data-cursor="cursor-cell" name="tools" /><label for="settingsTool">Settings</label>
       </div>
       <div class="line line-buttons">
         <button class="button reset" type="button">Reset</button>
@@ -55,6 +56,15 @@
         </div>
         <div class="line line-buttons">
           <button class="button" id="infoAddButton" type="button">Change and close</button>
+        </div>
+      </div>
+      <div class="line settings">
+        <div class="line">
+          <label class="label" for="settingsColor">Color</label>
+          <input class="input" id="settingsColor" type="text" />
+        </div>
+        <div class="line line-buttons">
+          <button class="button" id="settingsUpdateButton" type="button">Update and close</button>
         </div>
       </div>
       <div class="line generate">
