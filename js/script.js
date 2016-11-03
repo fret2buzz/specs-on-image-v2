@@ -209,7 +209,6 @@ $(document).ready(function() {
     }
   });
 
-  var nnn = 0;
   //setting the info for spot
   infoTool.click(function(){
     elementsSpot = $(".spot");
@@ -247,8 +246,6 @@ $(document).ready(function() {
               self.removeClass("active");
               infoSubject.val('');
               infoDescription.val('');
-              nnn++;
-              console.log(nnn);
               infoForm.hide();
             };
           });
