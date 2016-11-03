@@ -23,6 +23,11 @@ $(document).ready(function() {
   var elementsSpot;
   var scaleFactor = 1;
 
+  // set colors
+  $("#colors label").each(function() {
+    $(this).css("background-color", $(this).attr("data-color"));
+  });
+
   // set scale
   var setScale = function(num){
     photo.css({"transform": "scale(" + num + ")"}).parent().scrollLeft(0).scrollTop(0);
@@ -204,6 +209,7 @@ $(document).ready(function() {
     }
   });
 
+  var nnn = 0;
   //setting the info for spot
   infoTool.click(function(){
     elementsSpot = $(".spot");
@@ -241,6 +247,8 @@ $(document).ready(function() {
               self.removeClass("active");
               infoSubject.val('');
               infoDescription.val('');
+              nnn++;
+              console.log(nnn);
               infoForm.hide();
             };
           });
@@ -249,45 +257,33 @@ $(document).ready(function() {
     }
   });
 
-  //customize spot (can be moved to `infoTool`)
+  var settingsForm = $(".settings");
+  var settingsUpdateButton = $("#settingsUpdateButton");
+  var elementsSpot;
   settingsTool.click(function(){
     elementsSpot = $(".spot");
-
-    if(elementsSpot.length != 0){
+    if(elementsSpot.length != 0) {
       elementsSpot.click(function(){
+        elementsSpot.removeClass("checked");
+        $(this).addClass("checked");
+        var self = $(this);
         if(settingsTool.is(":checked")){
-          elementsSpot.removeClass("active");
-          $(this).addClass("active");
-          var self = $(this);
-          var settingsForm = $(".settings");
-          var settingsColor = $("#settingsColor");
-          var settingsUpdateButton = $("#settingsUpdateButton");
           settingsForm.show();
-
-          if(self.hasClass("has-info")){
-            settingsColor.val(self.attr("data-color"));
-          }
-
-          settingsUpdateButton.click(function(){
-            if(self.hasClass("active")){
-
-              self.attr("data-color", settingsColor.val());
-
-              if(self.attr("data-color") != ''){
-                self.addClass("has-info");
-                self.children("span").css("background-color", self.attr("data-color"));
-              } else {
-                self.removeClass("has-info");
+          $("#colors label").each(function() {
+            $(this).click(function() {
+              if(self.hasClass("checked")){
+                self.children("span").css("background-color", $(this).attr("data-color"));
               }
-
-              self.removeClass("active");
-              settingsColor.val('');
-              settingsForm.hide();
-            };
+            });
           });
         }
       });
     }
+  });
+  settingsUpdateButton.click(function(){
+    elementsSpot.removeClass("checked");
+    elementsSpot.unbind("click");
+    settingsForm.hide();
   });
 
   // generate HTML
@@ -320,7 +316,7 @@ $(document).ready(function() {
         var htmlSubject = $(this).attr("data-subject");
         var htmlDescription = $(this).attr("data-description");
         if(htmlSubject != undefined || htmlDescription != undefined){
-          text = text + '<div class="line"><span class="id">' + htmlId + '</span><dl class="list"><dt class="subject">' + htmlSubject + '</dt><dd class="description">' + htmlDescription + '</dd></dl></div>';
+          text = text + '<div class="line"><span style="background-color:' + $(this).find(".spot-in").css("backgroundColor") + '" class="id">' + htmlId + '</span><dl class="list"><dt class="subject">' + htmlSubject + '</dt><dd class="description">' + htmlDescription + '</dd></dl></div>';
         }
       });
       return text;

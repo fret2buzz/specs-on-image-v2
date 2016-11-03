@@ -84,6 +84,9 @@ body {
 .photo.cursor-cell .active .spot-in {
 	background: #ff4b3c;
 }
+.photo.cursor-cell .checked .spot-in {
+	border: 2px solid #ff4b3c;
+}
 
 .menu {
 	width: 40%;
@@ -122,6 +125,7 @@ body {
 }
 .spot-in {
 	background: rgba(44, 86, 157, 0.8);
+	border: 2px solid transparent;
 	border-radius: 999px;
 	position: absolute;
 	left: 50%;
@@ -134,7 +138,7 @@ body {
 	content: attr(data-id);
 	width: 100%;
 	height: 100%;
-	line-height: 30px;
+	line-height: 27px;
 	font-size: 16px;
 	font-weight: 700;
 	text-align: center;
@@ -190,6 +194,35 @@ body {
 .download-link,
 .settings {
 	display: none;
+}
+
+.settings .colors {
+	overflow: hidden;
+}
+.settings .colors li {
+	width: 30px;
+	height: 30px;
+	float: left;
+	margin-right: 8px;
+	display: block;
+	position: relative;
+}
+.settings .colors li input {
+	opacity: 0;
+}
+.settings .colors li input:checked + label {
+	border-color: #fff;
+}
+.settings .colors li label {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	border: 2px solid transparent;
+	cursor: pointer;
+	font-size: 0;
 }
 
 .generate {

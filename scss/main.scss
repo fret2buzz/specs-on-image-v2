@@ -51,6 +51,9 @@
     .active .spot-in {
       background: $colorRed;
     }
+    .checked .spot-in {
+      border: 2px solid $colorRed;
+    }
   }
 }
 
@@ -90,6 +93,7 @@
   height: 1px;
   &-in {
     background: rgba($colorBlue, 0.8);
+    border: 2px solid transparent;
     border-radius: 999px;
     position: absolute;
     left: 50%;
@@ -101,7 +105,7 @@
       content: attr(data-id);
       width: 100%;
       height: 100%;
-      line-height: 30px;
+      line-height: 27px;
       font-size: 16px;
       font-weight: 700;
       text-align: center;
@@ -158,6 +162,37 @@
 .download-link,
 .settings {
   display: none;
+}
+
+.settings {
+  .colors {
+    overflow: hidden;
+    li {
+      width: 30px;
+      height: 30px;
+      float: left;
+      margin-right: 8px;
+      display: block;
+      position: relative;
+      input {
+        opacity: 0;
+        &:checked + label {
+          border-color: #fff;
+        }
+      }
+      label {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        cursor: pointer;
+        font-size: 0;
+      }
+    }
+  }
 }
 
 .generate {
