@@ -3,8 +3,8 @@
 .container {
   display: flex;
   flex-flow: row wrap;
-  align-content: stretch;
   height: 100%;
+  align-items: stretch;
 }
 
 .main {
@@ -12,17 +12,16 @@
   overflow: auto;
   width: 60%;
   background: $colorGrey;
+  user-select: none;
+  position: relative;
 }
 
 .photo {
-  background-color: $colorWhite;
   transform: scale(1);
   transform-origin: left top;
   image-rendering: pixelated;
   .photo-image {
-    width: 0;
-    height: 0;
-    display: block;
+    display: none;
     vertical-align: top;
   }
   &-in {

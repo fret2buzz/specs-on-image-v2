@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  var main = $(".main");
   var photo = $(".photo");
   var photoIn = $(".photo-in");
 
@@ -21,6 +22,9 @@ $(document).ready(function() {
   var elementsBox;
   var elementsSpot;
   var scaleFactor = 1;
+  
+  var imageWidth;
+  var imageHeight;
 
   // set scale
   var setScale = function(num){
@@ -52,11 +56,6 @@ $(document).ready(function() {
   reset.click(function() {
     resetFunction();
   });
-  
-  // getting the X, Y of the cursor
-  photoIn.mousemove(function(e) {
-    coordinatesCursor.html('X: ' + Math.ceil(e.pageX/scaleFactor) + '<br /> Y: ' + Math.ceil(e.pageY/scaleFactor));
-  });
 
   // setting the class to container according to tool
   $(".tools").find("input").click(function(){
@@ -70,27 +69,36 @@ $(document).ready(function() {
   function readURL(input) {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
-
       reader.onload = function (e) {
-        var img = new Image();
-        img.src = e.target.result;
-        img.onload = function() {
-          var image = $('#imageFile');
-          var imageParent = image.parent();
-          image.attr('src', img.src);
-          image.add(imageParent).css({
-            "width": img.width + "px",
-            "height": img.height + "px"
-          });
-        }
+         $('#imageFile').attr('src', e.target.result);
       }
       reader.readAsDataURL(input.files[0]);
     }
   }
 
   $("#imageInput").change(function(){
-    readURL(this);
     resetFunction();
+    readURL(this);
+    setTimeout(function() {
+      var image = $("#imageFile");
+      imageWidth = image[0].naturalWidth;
+      imageHeight = image[0].naturalHeight;
+      image.add(photo).css({
+        "width": imageWidth + "px",
+        "height": imageHeight + "px"
+      });
+      image.show();
+    }, 500);
+  });
+
+  // getting the X, Y of the cursor
+  photoIn.mousemove(function(e) {
+    var photoOffset = photo.offset();
+    console.log(photoOffset.left, photoOffset.top);
+    var mmX = Math.ceil((e.pageX - photoOffset.left)/scaleFactor);
+    var mmY = Math.ceil((e.pageY - photoOffset.top)/scaleFactor);
+    // console.log(mmX, mmY);
+    coordinatesCursor.html('X: ' + mmX + '<br /> Y: ' + mmY);
   });
 
   // click on the container
@@ -146,8 +154,10 @@ $(document).ready(function() {
           boxCount--;
        }
     }
-  }).click(function(e){
-    // setting the spot
+  });
+
+  // setting the spot
+  photo.click(function(e){
     if($("#spotTool").is(":checked")){
       var parentOffset = $(this).offset();
       var relX = (e.pageX - parentOffset.left)/scaleFactor;
@@ -158,7 +168,11 @@ $(document).ready(function() {
         "top": relY,
       }).appendTo(photoIn);
     }
-    if($(".box").length>0 || $(".spot").length > 0) {
+  });
+
+  //showing the generate HTML section
+  photo.click(function(){
+    if($(".box").length > 0 || $(".spot").length > 0) {
       generate.show();
     } else {
       generate.hide();

@@ -31,10 +31,11 @@ body {
 	-webkit-flex-flow: row wrap;
 	-ms-flex-flow: row wrap;
 	flex-flow: row wrap;
-	-webkit-align-content: stretch;
-	-ms-flex-line-pack: stretch;
-	align-content: stretch;
 	height: 100%;
+	-webkit-box-align: stretch;
+	-webkit-align-items: stretch;
+	-ms-flex-align: stretch;
+	align-items: stretch;
 }
 
 .main {
@@ -42,10 +43,14 @@ body {
 	overflow: auto;
 	width: 60%;
 	background: #ccc;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	position: relative;
 }
 
 .photo {
-	background-color: white;
 	-webkit-transform: scale(1);
 	transform: scale(1);
 	-webkit-transform-origin: left top;
@@ -56,9 +61,7 @@ body {
 	image-rendering: pixelated;
 }
 .photo .photo-image {
-	width: 0;
-	height: 0;
-	display: block;
+	display: none;
 	vertical-align: top;
 }
 .photo-in {
