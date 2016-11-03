@@ -49,6 +49,7 @@
     }
     .active .spot-in {
       background: $colorRed;
+      border: 2px solid $colorWhite;
     }
   }
 }
@@ -89,6 +90,7 @@
   height: 1px;
   &-in {
     background: rgba($colorBlue, 0.8);
+    border: 2px solid rgba(0, 0, 0, 0);
     border-radius: 999px;
     position: absolute;
     left: 50%;
@@ -100,7 +102,7 @@
       content: attr(data-id);
       width: 100%;
       height: 100%;
-      line-height: 30px;
+      line-height: 27px;
       font-size: 16px;
       font-weight: 700;
       text-align: center;
@@ -154,8 +156,40 @@
 
 .info,
 .generate,
-.download-link {
+.download-link,
+.colors {
   display: none;
+}
+
+.colors {
+  ul {
+    overflow: hidden;
+    li {
+      width: 30px;
+      height: 30px;
+      float: left;
+      margin-right: 8px;
+      display: block;
+      position: relative;
+      input {
+        opacity: 0;
+        &:checked + label {
+          border-color: #fff;
+        }
+      }
+      label {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 2px solid rgba(0, 0, 0, 0);
+        cursor: pointer;
+        font-size: 0;
+      }
+    }
+  }
 }
 
 .generate {

@@ -14,6 +14,7 @@ $(document).ready(function() {
 
   var removeTool = $("#removeTool");
   var infoTool = $("#infoTool");
+  var colorsTool = $("#colorsTool");
   var scale = $(".scale");
   var scaleButtons = scale.find(".button");
   
@@ -25,6 +26,11 @@ $(document).ready(function() {
   
   var imageWidth;
   var imageHeight;
+
+  // set colors
+  $("#colors label").each(function() {
+    $(this).css("background-color", $(this).attr("data-color"));
+  });
 
   // set scale
   var setScale = function(num){
@@ -245,10 +251,10 @@ $(document).ready(function() {
               self.attr("data-description", infoDescription.val());
               
               if(self.attr("data-subject") != '' || self.attr("data-description") != ''){
-                self.addClass("has-info")
+                self.addClass("has-info");
               } 
               if(self.attr("data-subject") == '' && self.attr("data-description") == ''){
-                self.removeClass("has-info")
+                self.removeClass("has-info");
               }
 
               self.removeClass("active");
@@ -260,6 +266,34 @@ $(document).ready(function() {
         }
       });
     }
+  });
+
+  var colorsForm = $(".colors");
+  var colorsSaveButton = $("#colorsSaveButton");
+  var elementsSpot;
+  colorsTool.click(function(){
+    elementsSpot = $(".spot");
+    if(elementsSpot.length != 0) {
+      elementsSpot.click(function(){
+        elementsSpot.removeClass("active");
+        $(this).addClass("active");
+        var self = $(this);
+        if(colorsTool.is(":checked")){
+          colorsForm.show();
+          $("#colors label").each(function() {
+            $(this).click(function() {
+              if(self.hasClass("active")){
+                self.children("span").css("background-color", $(this).attr("data-color"));
+              }
+            });
+          });
+        }
+      });
+    }
+  });
+  colorsSaveButton.click(function(){
+    elementsSpot.removeClass("active");
+    colorsForm.hide();
   });
 
   // generate HTML
@@ -292,7 +326,7 @@ $(document).ready(function() {
         var htmlSubject = $(this).attr("data-subject");
         var htmlDescription = $(this).attr("data-description");
         if(htmlSubject != undefined || htmlDescription != undefined){
-          text = text + '<div class="line"><span class="id">' + htmlId + '</span><dl class="list"><dt class="subject">' + htmlSubject + '</dt><dd class="description">' + htmlDescription + '</dd></dl></div>';
+          text = text + '<div class="line"><span style="background-color:' + $(this).find(".spot-in").css("backgroundColor") + '" class="id">' + htmlId + '</span><dl class="list"><dt class="subject">' + htmlSubject + '</dt><dd class="description">' + htmlDescription + '</dd></dl></div>';
         }
       });
       return text;
