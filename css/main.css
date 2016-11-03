@@ -83,9 +83,7 @@ body {
 }
 .photo.cursor-cell .active .spot-in {
 	background: #ff4b3c;
-}
-.photo.cursor-cell .checked .spot-in {
-	border: 2px solid #ff4b3c;
+	border: 2px solid white;
 }
 
 .menu {
@@ -192,14 +190,14 @@ body {
 .info,
 .generate,
 .download-link,
-.settings {
+.colors {
 	display: none;
 }
 
-.settings .colors {
+.colors ul {
 	overflow: hidden;
 }
-.settings .colors li {
+.colors ul li {
 	width: 30px;
 	height: 30px;
 	float: left;
@@ -207,13 +205,13 @@ body {
 	display: block;
 	position: relative;
 }
-.settings .colors li input {
+.colors ul li input {
 	opacity: 0;
 }
-.settings .colors li input:checked + label {
+.colors ul li input:checked + label {
 	border-color: #fff;
 }
-.settings .colors li label {
+.colors ul li label {
 	position: absolute;
 	left: 0;
 	top: 0;

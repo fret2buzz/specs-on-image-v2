@@ -27,7 +27,7 @@
         <input type="radio" id="spotTool" data-cursor="cursor-pointer" name="tools" /><label for="spotTool">Hotspot</label>
         <input type="radio" id="removeTool" data-cursor="cursor-default" name="tools" /><label for="removeTool">Remove</label>
         <input type="radio" id="infoTool" data-cursor="cursor-cell" name="tools" /><label for="infoTool">Information</label>
-        <input type="radio" id="settingsTool" data-cursor="cursor-cell" name="tools" /><label for="settingsTool">Settings</label>
+        <input type="radio" id="colorsTool" data-cursor="cursor-cell" name="tools" /><label for="colorsTool">Colors</label>
       </div>
       <div class="line line-buttons">
         <button class="button reset" type="button">Reset</button>
@@ -58,9 +58,9 @@
           <button class="button" id="infoAddButton" type="button">Change and close</button>
         </div>
       </div>
-      <div class="line settings">
+      <div class="line colors">
         <div class="line">
-          <ul class="colors" id="colors">
+          <ul id="colors">
             <li><input id="color1" type="radio" name="color" value="#8d8b90"><label data-color="#8d8b90" for="color1">Color 1</label></li>
             <li><input id="color2" type="radio" name="color" value="#f0274d"><label data-color="#f0274d" for="color2">Color 2</label></li>
             <li><input id="color3" type="radio" name="color" value="#f03726"><label data-color="#f03726" for="color3">Color 3</label></li>
@@ -74,7 +74,7 @@
           </ul>
         </div>
         <div class="line line-buttons">
-          <button class="button" id="settingsUpdateButton" type="button">Update and close</button>
+          <button class="button" id="colorsSaveButton" type="button">Save and close</button>
         </div>
       </div>
       <div class="line generate">

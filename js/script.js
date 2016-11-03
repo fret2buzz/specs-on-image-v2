@@ -13,7 +13,7 @@ $(document).ready(function() {
 
   var removeTool = $("#removeTool");
   var infoTool = $("#infoTool");
-  var settingsTool = $("#settingsTool");
+  var colorsTool = $("#colorsTool");
   var scale = $(".scale");
   var scaleButtons = scale.find(".button");
   
@@ -254,21 +254,21 @@ $(document).ready(function() {
     }
   });
 
-  var settingsForm = $(".settings");
-  var settingsUpdateButton = $("#settingsUpdateButton");
+  var colorsForm = $(".colors");
+  var colorsSaveButton = $("#colorsSaveButton");
   var elementsSpot;
-  settingsTool.click(function(){
+  colorsTool.click(function(){
     elementsSpot = $(".spot");
     if(elementsSpot.length != 0) {
       elementsSpot.click(function(){
-        elementsSpot.removeClass("checked");
-        $(this).addClass("checked");
+        elementsSpot.removeClass("active");
+        $(this).addClass("active");
         var self = $(this);
-        if(settingsTool.is(":checked")){
-          settingsForm.show();
+        if(colorsTool.is(":checked")){
+          colorsForm.show();
           $("#colors label").each(function() {
             $(this).click(function() {
-              if(self.hasClass("checked")){
+              if(self.hasClass("active")){
                 self.children("span").css("background-color", $(this).attr("data-color"));
               }
             });
@@ -277,10 +277,9 @@ $(document).ready(function() {
       });
     }
   });
-  settingsUpdateButton.click(function(){
-    elementsSpot.removeClass("checked");
-    elementsSpot.unbind("click");
-    settingsForm.hide();
+  colorsSaveButton.click(function(){
+    elementsSpot.removeClass("active");
+    colorsForm.hide();
   });
 
   // generate HTML

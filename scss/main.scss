@@ -50,9 +50,7 @@
     }
     .active .spot-in {
       background: $colorRed;
-    }
-    .checked .spot-in {
-      border: 2px solid $colorRed;
+      border: 2px solid $colorWhite;
     }
   }
 }
@@ -93,7 +91,7 @@
   height: 1px;
   &-in {
     background: rgba($colorBlue, 0.8);
-    border: 2px solid transparent;
+    border: 2px solid rgba(0, 0, 0, 0);
     border-radius: 999px;
     position: absolute;
     left: 50%;
@@ -160,12 +158,12 @@
 .info,
 .generate,
 .download-link,
-.settings {
+.colors {
   display: none;
 }
 
-.settings {
-  .colors {
+.colors {
+  ul {
     overflow: hidden;
     li {
       width: 30px;
@@ -187,7 +185,7 @@
         width: 100%;
         height: 100%;
         border-radius: 50%;
-        border: 2px solid transparent;
+        border: 2px solid rgba(0, 0, 0, 0);
         cursor: pointer;
         font-size: 0;
       }
