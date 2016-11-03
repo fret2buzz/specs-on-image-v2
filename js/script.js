@@ -249,7 +249,7 @@ $(document).ready(function() {
     }
   });
 
-  //customize spot
+  //customize spot (can be moved to `infoTool`)
   settingsTool.click(function(){
     elementsSpot = $(".spot");
 
