@@ -79,13 +79,13 @@ body {
 }
 .photo.cursor-default .box:hover,
 .photo.cursor-default .spot-in:hover {
-	border-radius: 0;
+	border-color: white;
 }
 .photo.cursor-cell .spot-in:hover {
-	border-radius: 0;
+	border-color: white;
 }
 .photo.cursor-cell .active .spot-in {
-	border-radius: 0;
+	border-color: white;
 }
 
 .menu {
@@ -125,19 +125,20 @@ body {
 }
 .spot-in {
 	background: rgba(44, 86, 157, 0.8);
+	border: 2px solid transparent;
 	border-radius: 999px;
 	position: absolute;
 	left: 50%;
 	top: 50%;
-	width: 30px;
-	height: 30px;
+	width: 28px;
+	height: 28px;
 	margin: -14px 0 0 -14px;
 }
 .spot-in:after {
 	content: attr(data-id);
 	width: 100%;
 	height: 100%;
-	line-height: 27px;
+	line-height: 24px;
 	font-size: 16px;
 	font-weight: 700;
 	text-align: center;
@@ -188,6 +189,7 @@ body {
 	border: 1px solid #ff4b3c;
 }
 
+.info,
 .generate,
 .download-link {
 	display: none;
@@ -244,26 +246,6 @@ body {
 	font-size: 0;
 	white-space: nowrap;
 }
-.line-buttons:first-child {
-	padding: 0;
-}
-.line-buttons input {
-	opacity: 0;
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 0;
-	height: 0;
-}
-.line-buttons input:first-child + label {
-	border-top-left-radius: 5px;
-	border-bottom-left-radius: 5px;
-}
-.line-buttons input:checked + label {
-	background: #2c569d;
-	color: white;
-}
-.line-buttons label,
 .line-buttons .button {
 	display: inline-block;
 	background: white;
@@ -274,23 +256,69 @@ body {
 	border-right: 0;
 	cursor: pointer;
 }
-.line-buttons label.active,
 .line-buttons .button.active {
 	background: #2c569d;
 	color: white;
 }
-.line-buttons label:focus,
 .line-buttons .button:focus {
 	outline: none;
 }
-.line-buttons label:first-child,
 .line-buttons .button:first-child {
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
 }
-.line-buttons label:last-child,
 .line-buttons .button:last-child {
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
 	border-right: 1px solid black;
+}
+
+.adi-cr {
+	display: block;
+	vertical-align: top;
+	overflow: hidden;
+	position: relative;
+	margin: 10px 0 0;
+}
+.adi-cr:first-child {
+	margin: 0;
+}
+
+.adi-cr label {
+	padding-left: 34px;
+	position: relative;
+	display: block;
+	min-height: 24px;
+	line-height: 24px;
+}
+
+.adi-cr input {
+	position: absolute;
+	left: -999px;
+	top: 0;
+}
+
+.adi-cr-radio label:after {
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	content: '';
+	border: 1px solid #ccc;
+	background: white;
+	left: 0;
+	top: 50%;
+	margin: -12px 0 0;
+	border-radius: 999px;
+}
+
+.adi-cr-radio input:checked + label:before {
+	width: 8px;
+	height: 8px;
+	position: absolute;
+	content: '';
+	background: #2c569d;
+	left: 8px;
+	top: 8px;
+	border-radius: 999px;
+	z-index: 1;
 }

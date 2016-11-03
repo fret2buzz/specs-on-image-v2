@@ -40,15 +40,15 @@
   &.cursor-default {
     .box:hover,
     .spot-in:hover {
-      border-radius: 0;
+      border-color: $colorWhite;
     }
   }
   &.cursor-cell {
     .spot-in:hover {
-      border-radius: 0;
+      border-color: $colorWhite;
     }
     .active .spot-in {
-      border-radius: 0;
+      border-color: $colorWhite;
     }
   }
 }
@@ -89,18 +89,19 @@
   height: 1px;
   &-in {
     background: rgba($colorBlue, 0.8);
+    border: 2px solid rgba(0,0,0,0);
     border-radius: 999px;
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     margin: -14px 0 0 -14px;
     &:after {
       content: attr(data-id);
       width: 100%;
       height: 100%;
-      line-height: 27px;
+      line-height: 24px;
       font-size: 16px;
       font-weight: 700;
       text-align: center;
@@ -152,6 +153,7 @@
   }
 }
 
+.info,
 .generate,
 .download-link {
   display: none;
@@ -213,26 +215,6 @@
 .line-buttons {
   font-size: 0;
   white-space: nowrap;
-  &:first-child {
-    padding: 0;
-  }
-  input {
-    opacity: 0;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 0;
-    height: 0;
-    &:first-child + label {
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
-    }
-    &:checked + label {
-      background: $colorBlue;
-      color: $colorWhite;
-    }
-  }
-  label,
   .button {
     display: inline-block;
     background: $colorWhite;
@@ -258,5 +240,59 @@
       border-bottom-right-radius: 5px;
       border-right: 1px solid $colorBlack;
     }
+  }
+}
+
+.adi-cr {
+  display: block;
+  vertical-align: top;
+  overflow: hidden;
+  position: relative;
+  margin: 10px 0 0;
+  &:first-child {
+    margin: 0;
+  }
+}
+
+.adi-cr label {
+  padding-left: 34px;
+  position: relative;
+  display: block;
+  min-height: 24px;
+  line-height: 24px;
+}
+
+.adi-cr input {
+  position: absolute;
+  left: -999px;
+  top: 0;
+}
+
+.adi-cr-radio label {
+  &:after {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    content: '';
+    border: 1px solid $colorGrey;
+    background: $colorWhite;
+    left: 0;
+    top: 50%;
+    margin: -12px 0 0;
+    border-radius: 999px;
+  }
+}
+
+.adi-cr-radio input:checked + label {
+  &:before {
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    content: '';
+    background: $colorBlue;
+    left: 8px;
+    top: 8px;
+    border-radius: 999px;
+    z-index: 1;
   }
 }

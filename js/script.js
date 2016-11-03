@@ -58,7 +58,6 @@ $(document).ready(function() {
 
   var resetFunction = function(){
     photoIn.add(coordinatesBox).html('');
-
     boxCount = 0;
     spotCount = 0;
     scaleFactor = 1;
@@ -67,6 +66,7 @@ $(document).ready(function() {
     scale.find(".default").addClass("active");
     generate.hide();
     downloadLink.hide();
+    resetForm();
   }
 
   // clicking on reset button
@@ -80,6 +80,13 @@ $(document).ready(function() {
       photo.attr("class", "");
       photo.addClass("photo " + $(this).attr("data-cursor"));
     };
+    if($(this).is("#infoTool")){
+      infoForm.show();
+    } else {
+      infoForm.hide();
+      resetForm();
+      
+    }
   });
 
   // choose image

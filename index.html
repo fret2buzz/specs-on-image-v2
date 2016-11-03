@@ -22,11 +22,19 @@
       <div class="line image-input">
         <input id="imageInput" type="file" />
       </div>
-      <div class="line line-buttons tools">
-        <input type="radio" id="sizeTool" data-cursor="cursor-crosshair" name="tools" /><label for="sizeTool">Size</label>
-        <input type="radio" id="spotTool" data-cursor="cursor-pointer" name="tools" /><label for="spotTool">Hotspot</label>
-        <input type="radio" id="removeTool" data-cursor="cursor-default" name="tools" /><label for="removeTool">Remove</label>
-        <input type="radio" id="infoTool" data-cursor="cursor-cell" name="tools" /><label for="infoTool">Information</label>
+      <div class="line tools">
+        <div class="adi-cr adi-cr-radio">
+          <input type="radio" id="sizeTool" data-cursor="cursor-crosshair" name="tools" /><label for="sizeTool">Measure size</label>
+        </div>
+        <div class="adi-cr adi-cr-radio">
+          <input type="radio" id="spotTool" data-cursor="cursor-pointer" name="tools" /><label for="spotTool">Add a spot</label>
+        </div>
+        <div class="adi-cr adi-cr-radio">
+          <input type="radio" id="infoTool" data-cursor="cursor-cell" name="tools" /><label for="infoTool">Add data to a spot</label>
+        </div>
+        <div class="adi-cr adi-cr-radio">
+          <input type="radio" id="removeTool" data-cursor="cursor-default" name="tools" /><label for="removeTool">Remove element</label>
+        </div>
       </div>
       <div class="line line-buttons">
         <button class="button reset" type="button">Reset</button>
