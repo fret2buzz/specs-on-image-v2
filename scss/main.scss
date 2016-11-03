@@ -40,16 +40,15 @@
   &.cursor-default {
     .box:hover,
     .spot-in:hover {
-      background: rgba($colorBlack, 0.9);
+      border-radius: 0;
     }
   }
   &.cursor-cell {
     .spot-in:hover {
-      background: rgba($colorBlack, 0.9);
+      border-radius: 0;
     }
     .active .spot-in {
-      background: $colorRed;
-      border: 2px solid $colorWhite;
+      border-radius: 0;
     }
   }
 }
@@ -90,7 +89,6 @@
   height: 1px;
   &-in {
     background: rgba($colorBlue, 0.8);
-    border: 2px solid rgba(0, 0, 0, 0);
     border-radius: 999px;
     position: absolute;
     left: 50%;
@@ -154,10 +152,8 @@
   }
 }
 
-.info,
 .generate,
-.download-link,
-.colors {
+.download-link {
   display: none;
 }
 

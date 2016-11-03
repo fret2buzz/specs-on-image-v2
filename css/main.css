@@ -79,14 +79,13 @@ body {
 }
 .photo.cursor-default .box:hover,
 .photo.cursor-default .spot-in:hover {
-	background: rgba(0, 0, 0, 0.9);
+	border-radius: 0;
 }
 .photo.cursor-cell .spot-in:hover {
-	background: rgba(0, 0, 0, 0.9);
+	border-radius: 0;
 }
 .photo.cursor-cell .active .spot-in {
-	background: #ff4b3c;
-	border: 2px solid white;
+	border-radius: 0;
 }
 
 .menu {
@@ -126,7 +125,6 @@ body {
 }
 .spot-in {
 	background: rgba(44, 86, 157, 0.8);
-	border: 2px solid transparent;
 	border-radius: 999px;
 	position: absolute;
 	left: 50%;
@@ -190,10 +188,8 @@ body {
 	border: 1px solid #ff4b3c;
 }
 
-.info,
 .generate,
-.download-link,
-.colors {
+.download-link {
 	display: none;
 }
 

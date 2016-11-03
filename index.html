@@ -27,7 +27,6 @@
         <input type="radio" id="spotTool" data-cursor="cursor-pointer" name="tools" /><label for="spotTool">Hotspot</label>
         <input type="radio" id="removeTool" data-cursor="cursor-default" name="tools" /><label for="removeTool">Remove</label>
         <input type="radio" id="infoTool" data-cursor="cursor-cell" name="tools" /><label for="infoTool">Information</label>
-        <input type="radio" id="colorsTool" data-cursor="cursor-cell" name="tools" /><label for="colorsTool">Colors</label>
       </div>
       <div class="line line-buttons">
         <button class="button reset" type="button">Reset</button>
@@ -54,29 +53,25 @@
           <label class="label" for="infoDescription">Description</label>
           <textarea class="input" name="description" id="infoDescription" cols="30" rows="10"></textarea>
         </div>
-        <div class="line line-buttons">
-          <button class="button" id="infoAddButton" type="button">Change and close</button>
-        </div>
-      </div>
-      <div class="line colors">
-        <div class="line">
+        <div class="line colors">
           <ul id="colors">
-            <li><input id="color1" type="radio" name="color" value="#8d8b90"><label data-color="#8d8b90" for="color1">Color 1</label></li>
-            <li><input id="color2" type="radio" name="color" value="#f0274d"><label data-color="#f0274d" for="color2">Color 2</label></li>
-            <li><input id="color3" type="radio" name="color" value="#f03726"><label data-color="#f03726" for="color3">Color 3</label></li>
-            <li><input id="color4" type="radio" name="color" value="#f29201"><label data-color="#f29201" for="color4">Color 4</label></li>
-            <li><input id="color5" type="radio" name="color" value="#f7c817"><label data-color="#f7c817" for="color5">Color 5</label></li>
-            <li><input id="color6" type="radio" name="color" value="#5fd666"><label data-color="#5fd666" for="color6">Color 6</label></li>
-            <li><input id="color7" type="radio" name="color" value="#6bc4f6"><label data-color="#6bc4f6" for="color7">Color 7</label></li>
-            <li><input id="color8" type="radio" name="color" value="#4ba6d6"><label data-color="#4ba6d6" for="color8">Color 8</label></li>
-            <li><input id="color9" type="radio" name="color" value="#3174f5"><label data-color="#3174f5" for="color9">Color 9</label></li>
-            <li><input id="color10" type="radio" name="color" value="#5b50ce"><label data-color="#5b50ce" for="color10">Color 10</label></li>
+            <li><input id="color1" type="radio" name="color" value="#8d8b90"><label style="background-color: #8d8b90;" for="color1">Color 1</label></li>
+            <li><input id="color2" type="radio" name="color" value="#f0274d"><label style="background-color: #f0274d;" for="color2">Color 2</label></li>
+            <li><input id="color3" type="radio" name="color" value="#f03726"><label style="background-color: #f03726;" for="color3">Color 3</label></li>
+            <li><input id="color4" type="radio" name="color" value="#f29201"><label style="background-color: #f29201;" for="color4">Color 4</label></li>
+            <li><input id="color5" type="radio" name="color" value="#f7c817"><label style="background-color: #f7c817;" for="color5">Color 5</label></li>
+            <li><input id="color6" type="radio" name="color" value="#5fd666"><label style="background-color: #5fd666;" for="color6">Color 6</label></li>
+            <li><input id="color7" type="radio" name="color" value="#6bc4f6"><label style="background-color: #6bc4f6;" for="color7">Color 7</label></li>
+            <li><input id="color8" type="radio" name="color" value="#4ba6d6"><label style="background-color: #4ba6d6;" for="color8">Color 8</label></li>
+            <li><input id="color9" type="radio" name="color" value="#3174f5"><label style="background-color: #3174f5;" for="color9">Color 9</label></li>
+            <li><input id="color10" type="radio" name="color" value="#5b50ce"><label style="background-color: #5b50ce;" for="color10">Color 10</label></li>
           </ul>
         </div>
         <div class="line line-buttons">
-          <button class="button" id="colorsSaveButton" type="button">Save and close</button>
+          <button class="button" id="infoAddButton" type="button">Save</button>
         </div>
       </div>
+      
       <div class="line generate">
         <div class="line">
           <button class="button" id="generateHTML" type="button">Generate HTML</button>
