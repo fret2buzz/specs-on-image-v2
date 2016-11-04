@@ -162,8 +162,8 @@ $(document).ready(function() {
 
   //setting the sizes
   var orientation = function(x,y){
+    var curBox = $(".box-" + boxCount);
     if(+x > +y){
-      var curBox = $(".box-" + boxCount);
       curBox.addClass("w");
       curBox.removeClass("h");
     } else {
@@ -173,10 +173,8 @@ $(document).ready(function() {
   };
   var change = function(){
     if(edited == false) {
-      var curBox = $(".box-" + boxCount);
-
+      curBox = $(".box-" + boxCount);
       curBox.mousedown(function(e){
-        console.log($(this));
         //getting the left top corner of curBox
         var curBoxOffset = $(this).offset();
         //cursor pos on the curBox - left and top corner
@@ -217,6 +215,7 @@ $(document).ready(function() {
   var done = function(){
     edited = true;
     photo.off("mousemove");
+    $(".box-" + boxCount).off("mousedown");
     doneButton.hide();
     applyButton.hide();
     boxCursorX.add(boxCursorY).add(boxWidth).add(boxHeight).val('');
@@ -267,8 +266,6 @@ $(document).ready(function() {
         applyButton.show();
         edited = false;
         change();
-      } else {
-        event.preventDefault();
       }
     }
   });
