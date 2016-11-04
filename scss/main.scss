@@ -35,10 +35,15 @@
     cursor: pointer;
   }
   &.cursor-crosshair {
-    cursor: crosshair;
+    cursor: default;
+    .box.active {
+      background: rgba($colorGreen, 0.5);
+    }
   }
   &.cursor-default {
-    .box:hover,
+    .box:hover {
+      background: rgba($colorGreen, 0.5);
+    }
     .spot-in:hover {
       border-color: $colorWhite;
     }
@@ -59,28 +64,38 @@
   background: rgba($colorBlue, 0.2);
 }
 
-.coordinates {
-  overflow: hidden;
+.size {
   font-family: 'Courier New', sans-serif;
+  overflow: hidden;
+  font-size: 0;
+  input {
+    font-family: 'Courier New', sans-serif;
+    font-size: 14px;
+  }
+  &-in {
+    margin: -10px 0 0 -10px;
+  }
+}
+
+.col {
   font-size: 14px;
+  width: 50%;
+  display: inline-block;
+  vertical-align: top;
+  padding: 10px 0 0 10px;
 }
 
-.coordinates-box,
-.coordinates-cursor {
-  width: 49%;
-}
-
-.coordinates-box {
-  float: left;
-}
-
-.coordinates-cursor {
-  float: right;
+.col-wide {
+  width: 100%;
 }
 
 .box {
   position: absolute;
   background: rgba($colorBlue, 0.5);
+}
+
+.box-button {
+  display: none;
 }
 
 .spot {
@@ -199,10 +214,6 @@
   button {
     font-size: 18px;
     padding: 12px;
-    // border: 0;
-    // color: $colorBlack;
-    // background: 0 0;
-    // cursor: pointer;
     &:focus {
       outline: none;
     }
@@ -212,34 +223,29 @@
   }
 }
 
-.line-buttons {
-  font-size: 0;
-  white-space: nowrap;
-  .button {
-    display: inline-block;
-    background: $colorWhite;
-    border: 0;
-    padding: 5px 12px;
-    font-size: 13px;
-    border: 1px solid $colorBlack;
-    border-right: 0;
-    cursor: pointer;
-    &.active {
-      background: $colorBlue;
-      color: $colorWhite;
-    }
-    &:focus {
-      outline: none;
-    }
-    &:first-child {
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
-    }
-    &:last-child {
-      border-top-right-radius: 5px;
-      border-bottom-right-radius: 5px;
-      border-right: 1px solid $colorBlack;
-    }
+.tools {
+  border: 1px solid $colorGrey;
+  background: rgba($colorWhite, 0.5);
+  padding: 10px;
+  margin: 10px 0 0;
+}
+
+button {
+  padding: 4px 8px;
+  background: $colorWhite;
+  border: 1px solid $colorGrey;
+  &.active {
+    background: $colorBlue;
+    color: $colorWhite;
+    border: 1px solid $colorBlue;
+  }
+  &:active {
+    background: $colorGrey;
+    color: $colorBlack;
+    border: 1px solid $colorGrey;
+  }
+  &:focus {
+    outline: none;
   }
 }
 

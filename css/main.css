@@ -75,9 +75,14 @@ body {
 	cursor: pointer;
 }
 .photo.cursor-crosshair {
-	cursor: crosshair;
+	cursor: default;
 }
-.photo.cursor-default .box:hover,
+.photo.cursor-crosshair .box.active {
+	background: rgba(127, 186, 0, 0.5);
+}
+.photo.cursor-default .box:hover {
+	background: rgba(127, 186, 0, 0.5);
+}
 .photo.cursor-default .spot-in:hover {
 	border-color: white;
 }
@@ -94,28 +99,38 @@ body {
 	background: rgba(44, 86, 157, 0.2);
 }
 
-.coordinates {
+.size {
+	font-family: 'Courier New', sans-serif;
 	overflow: hidden;
+	font-size: 0;
+}
+.size input {
 	font-family: 'Courier New', sans-serif;
 	font-size: 14px;
 }
-
-.coordinates-box,
-.coordinates-cursor {
-	width: 49%;
+.size-in {
+	margin: -10px 0 0 -10px;
 }
 
-.coordinates-box {
-	float: left;
+.col {
+	font-size: 14px;
+	width: 50%;
+	display: inline-block;
+	vertical-align: top;
+	padding: 10px 0 0 10px;
 }
 
-.coordinates-cursor {
-	float: right;
+.col-wide {
+	width: 100%;
 }
 
 .box {
 	position: absolute;
 	background: rgba(44, 86, 157, 0.5);
+}
+
+.box-button {
+	display: none;
 }
 
 .spot {
@@ -242,35 +257,30 @@ body {
 	padding: 0 12px;
 }
 
-.line-buttons {
-	font-size: 0;
-	white-space: nowrap;
+.tools {
+	border: 1px solid #ccc;
+	background: rgba(255, 255, 255, 0.5);
+	padding: 10px;
+	margin: 10px 0 0;
 }
-.line-buttons .button {
-	display: inline-block;
+
+button {
+	padding: 4px 8px;
 	background: white;
-	border: 0;
-	padding: 5px 12px;
-	font-size: 13px;
-	border: 1px solid black;
-	border-right: 0;
-	cursor: pointer;
+	border: 1px solid #ccc;
 }
-.line-buttons .button.active {
+button.active {
 	background: #2c569d;
 	color: white;
+	border: 1px solid #2c569d;
 }
-.line-buttons .button:focus {
+button:active {
+	background: #ccc;
+	color: black;
+	border: 1px solid #ccc;
+}
+button:focus {
 	outline: none;
-}
-.line-buttons .button:first-child {
-	border-top-left-radius: 5px;
-	border-bottom-left-radius: 5px;
-}
-.line-buttons .button:last-child {
-	border-top-right-radius: 5px;
-	border-bottom-right-radius: 5px;
-	border-right: 1px solid black;
 }
 
 .adi-cr {

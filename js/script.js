@@ -2,10 +2,10 @@ $(document).ready(function() {
   var main = $(".main");
   var photo = $(".photo");
   var photoIn = $(".photo-in");
-
+  var tools = $(".tools");
   var boxCount = 0;
   var spotCount = 0;
-
+  var edited = true;
   var reset = $(".reset");
   var generate = $(".generate");
   var generateButton = $("#generateHTML");
@@ -18,12 +18,20 @@ $(document).ready(function() {
   var scale = $(".scale");
   var scaleButtons = scale.find(".button");
   
-  var coordinatesBox = $(".coordinates-box");
-  var coordinatesCursor = $(".coordinates-cursor");
+  var sizeForm = $(".size");
+  var boxWidth = $("#boxWidth");
+  var boxHeight = $("#boxHeight");
+  var cursorX = $("#cursorX");
+  var cursorY = $("#cursorY");
+  var boxCursorX = $("#boxCursorX");
+  var boxCursorY = $("#boxCursorY");
+  var documentWidth = $("#documentWidth");
+  var documentHeight = $("#documentHeight");
+  var boxButton = $("#boxButton");
   var elementsBox;
   var elementsSpot;
   var scaleFactor = 1;
-  
+  var imageFile = $("#imageFile");
   var imageWidth;
   var imageHeight;
 
@@ -57,7 +65,15 @@ $(document).ready(function() {
   });
 
   var resetFunction = function(){
-    photoIn.add(coordinatesBox).html('');
+    photoIn.html('');
+    boxWidth.val('');
+    boxHeight.val('');
+    boxCursorX.val('');
+    boxCursorY.val('');
+    cursorX.html('');
+    cursorY.html('');
+    documentWidth.html('');
+    documentHeight.html('');
     boxCount = 0;
     spotCount = 0;
     scaleFactor = 1;
@@ -66,7 +82,10 @@ $(document).ready(function() {
     scale.find(".default").addClass("active");
     generate.hide();
     downloadLink.hide();
+    tools.find("input").prop("checked", false);
+    photo.attr("class", "photo");
     resetForm();
+    edited = true;
   }
 
   // clicking on reset button
@@ -75,7 +94,7 @@ $(document).ready(function() {
   });
 
   // setting the class to container according to tool
-  $(".tools").find("input").click(function(){
+  tools.find("input").click(function(){
     if($(this).is(":checked")){
       photo.attr("class", "");
       photo.addClass("photo " + $(this).attr("data-cursor"));
@@ -85,7 +104,6 @@ $(document).ready(function() {
     } else {
       infoForm.hide();
       resetForm();
-      
     }
   });
 
@@ -94,14 +112,16 @@ $(document).ready(function() {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
       reader.onload = function (e) {
-         $('#imageFile').attr('src', e.target.result);
+         imageFile.attr('src', e.target.result);
       }
       reader.readAsDataURL(input.files[0]);
     }
   }
-
-  $("#imageInput").change(function(){
+  $("#imageInput").click(function(){
+    imageFile.attr("style", "").attr("src", "");
     resetFunction();
+  });
+  $("#imageInput").change(function(){
     readURL(this);
     setTimeout(function() {
       var image = $("#imageFile");
@@ -111,6 +131,8 @@ $(document).ready(function() {
         "width": imageWidth + "px",
         "height": imageHeight + "px"
       });
+      documentWidth.html(imageWidth);
+      documentHeight.html(imageHeight);
       image.show();
     }, 500);
   });
@@ -122,61 +144,82 @@ $(document).ready(function() {
     var mmX = Math.ceil((e.pageX - photoOffset.left)/scaleFactor);
     var mmY = Math.ceil((e.pageY - photoOffset.top)/scaleFactor);
     // console.log(mmX, mmY);
-    coordinatesCursor.html('X: ' + mmX + '<br /> Y: ' + mmY);
+    cursorX.html(mmX);
+    cursorY.html(mmY);
   });
 
-  // click on the container
-  photo.mousedown(function(e) {
-    // measuring the size
-    if($("#sizeTool").is(":checked")){
+  //setting the sizes
+  var apply = function(){
+    var curBox = $(".box-" + boxCount);
+    var boxWidthVal = boxWidth.val();
+    var boxHeightVal = boxHeight.val();
+    curBox.css({
+      "left": boxCursorX.val() + "px",
+      "top": boxCursorY.val() + "px",
+      "width": boxWidthVal + "px",
+      "height": boxHeightVal + "px"
+    }).attr("data-width", boxWidthVal).attr("data-height", boxHeightVal);
 
-      var parentOffset = $(this).offset();
-      var relX = (e.pageX - parentOffset.left)/scaleFactor;
-      var relY = (e.pageY - parentOffset.top)/scaleFactor;
-      boxCount++;
-      var curBox = $('<div class="box box-' + boxCount + '"></div>').css({
-        "left": relX,
-        "top": relY,
-      }).appendTo(photoIn);
-      
-      $(this).mousemove(function(e) {
-        var newWidth = (e.pageX - parentOffset.left)/scaleFactor - relX;
-        var newHeight = (e.pageY - parentOffset.top)/scaleFactor - relY;
-        var negativeCalc = function(size){
-         if(size < 0){
-          size = 0;
-         };
-         return size;
-        };
-        newWidth = negativeCalc(newWidth);
-        newHeight = negativeCalc(newHeight);
-        curBox.css({  
-          "width": newWidth + "px",
-          "height": newHeight + "px"
-        });
-
-        curBox.attr("data-width", Math.ceil(newWidth)).attr("data-height", Math.ceil(newHeight));
-        coordinatesBox.html('W: ' + Math.ceil(newWidth) + '<br /> H: ' + Math.ceil(newHeight));
-      });
+    if(boxWidthVal > boxHeightVal){
+     curBox.addClass("w");
+     curBox.removeClass("h");
+    } else {
+     curBox.addClass("h");
+     curBox.removeClass("w");
     }
-  }).mouseup(function() {
+  };
+  var change = function(){
+    boxCursorX.add(boxCursorY).add(boxWidth).add(boxHeight).change(function(){
+      if(edited == false) {
+        apply();
+      }
+    });
+  };
+  $(document).keydown(function (e) {
+    if (e.keyCode == 16) {
+      boxCursorX.add(boxCursorY).add(boxWidth).add(boxHeight).attr("step", 10);
+    }
+  }).keyup(function (e) {
+    if (e.keyCode == 16) {
+      boxCursorX.add(boxCursorY).add(boxWidth).add(boxHeight).attr("step", "");
+    }
+  });
+  boxButton.click(function(){
+    edited = true;
+    boxButton.hide();
+    boxCursorX.add(boxCursorY).add(boxWidth).add(boxHeight).val('');
+    $(".box-" + boxCount).removeClass("active");
+  });
+  photo.click(function(e){
     if($("#sizeTool").is(":checked")){
+      if(edited) {
+        var parentOffset = $(this).offset();
+        var relX = Math.ceil((e.pageX - parentOffset.left)/scaleFactor);
+        var relY = Math.ceil((e.pageY - parentOffset.top)/scaleFactor);
+        var boxWidthVal = Math.ceil(100);
+        var boxHeightVal = Math.ceil(20);
+        boxCount++;
+        var box = $('<div class="box box-' + boxCount + ' w"></div>').css({
+          "left": relX,
+          "top": relY,
+          "width": boxWidthVal + "px",
+          "height": boxHeightVal + "px"
+        })
+        .appendTo(photoIn)
+        .addClass("active")
+        .attr("data-width", boxWidthVal)
+        .attr("data-height", boxHeightVal);
 
-       $(this).off("mousemove");
-       curBox = $(".box-" + boxCount);
-       // check if horizontal or vertical
-       var dataWidth = curBox.attr("data-width");
-       var dataHeight = curBox.attr("data-height");
-       if(+dataWidth > +dataHeight){
-         curBox.addClass("w");
-       } else {
-         curBox.addClass("h");
-       }
-       // remove from DOM
-       if(dataWidth == 0 || dataHeight == 0 || dataWidth == undefined || dataHeight == undefined){
-          curBox.remove();
-          boxCount--;
-       }
+        boxCursorX.val(relX);
+        boxCursorY.val(relY);
+        boxWidth.val(boxWidthVal);
+        boxHeight.val(boxHeightVal);
+        boxButton.show();
+        edited = false;
+        change();
+      } else {
+        event.preventDefault();
+      }
     }
   });
 
@@ -262,9 +305,14 @@ $(document).ready(function() {
 
             if(self.hasClass("active")){
 
-              self.attr("data-subject", $("#infoSubject").val());
-              self.attr("data-description", $("#infoDescription").val());
-
+              if(infoSubject.val() != ''){
+                self.attr("data-subject", infoSubject.val());
+              }
+              
+              if(infoDescription.val() != ''){
+                self.attr("data-description", infoDescription.val());
+              }
+              
               self.attr("data-color", $("#colors").find("input:checked").val());
               self.find(".spot-in").css("backgroundColor",  $("#colors").find("input:checked").val());
               
@@ -323,5 +371,6 @@ $(document).ready(function() {
     var link = $('#downloadLink');
     link.attr("href", makeHTMLFile(html)).css("display", "block");
   });
+
 
 });

@@ -36,20 +36,30 @@
           <input type="radio" id="removeTool" data-cursor="cursor-default" name="tools" /><label for="removeTool">Remove element</label>
         </div>
       </div>
-      <div class="line line-buttons">
-        <button class="button reset" type="button">Reset</button>
-      </div>
-      <div class="line line-buttons scale">
+      <div class="line scale">
         <button class="button" data-scale="0.3" type="button">x0.3</button>
         <button class="button" data-scale="0.5" type="button">x0.5</button>
         <button class="button default active" data-scale="1" type="button">x1</button>
         <button class="button" data-scale="2" type="button">x2</button>
         <button class="button" data-scale="3" type="button">x3</button>
         <button class="button" data-scale="5" type="button">x5</button>
+        <button class="button reset" type="button">Reset all</button>
       </div>
-      <div class="line coordinates">
-        <div class="coordinates-box">W:0<br />H:0</div>
-        <div class="coordinates-cursor">X:0<br />Y:0</div>
+      <div class="line size">
+        <div class="col-in">
+          <div class="col col-wide">Hold SHIFT key to step by 10 pixels</div>
+          
+          <div class="col">BW:<br /> <input id="boxWidth" type="number" /><br />BH:<br /> <input id="boxHeight" type="number" /></div>
+          <div class="col">BX:<br /> <input id="boxCursorX" type="number" /><br />BY:<br /> <input id="boxCursorY" type="number" /></div>
+          <div class="col"><button class="box-button" id="boxButton" type="button">Done</button></div>
+        </div>
+      </div>
+      <div class="line size">
+        <div class="col-in">
+          
+          <div class="col">W: <span id="documentWidth"></span><br />H: <span id="documentHeight" /></span></div>
+          <div class="col">X: <span id="cursorX"></span><br />Y: <span id="cursorY" /></span></div>
+        </div>
       </div>
       <div class="line info">
         <div class="line">
@@ -75,7 +85,7 @@
             <li><input id="color10" type="radio" name="color" value="#5b50ce"><label style="background-color: #5b50ce;" for="color10">Color 10</label></li>
           </ul>
         </div>
-        <div class="line line-buttons">
+        <div class="line">
           <button class="button" id="infoAddButton" type="button">Save</button>
         </div>
       </div>
