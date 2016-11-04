@@ -128,6 +128,21 @@ body {
 	position: absolute;
 	background: rgba(44, 86, 157, 0.5);
 }
+.box.active:before,
+.box.active:after {
+	content: '';
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+.box.active:after {
+	border: 1px dashed black;
+}
+.box.active:before {
+	border: 1px solid white;
+}
 .box .point {
 	display: none;
 }
@@ -136,10 +151,9 @@ body {
 	position: absolute;
 	width: 8px;
 	height: 8px;
-	background: #7fba00;
-}
-.box.active .point:hover {
-	background: #2c569d;
+	background: white;
+	border: 1px solid black;
+	z-index: 1;
 }
 .box.active .point.p-t {
 	top: -4px;

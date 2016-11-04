@@ -156,10 +156,10 @@ $(document).ready(function() {
 
   // getting the X, Y of the cursor
   photoIn.mousemove(function(e) {
-    var photoOffset = photo.offset();
-    // console.log(photoOffset.left, photoOffset.top);
-    var mmX = Math.ceil((e.pageX - photoOffset.left)/scaleFactor);
-    var mmY = Math.ceil((e.pageY - photoOffset.top)/scaleFactor);
+    var photoInOffset = photo.offset();
+    // console.log(photoInOffset.left, photoInOffset.top);
+    var mmX = Math.ceil((e.pageX - photoInOffset.left)/scaleFactor);
+    var mmY = Math.ceil((e.pageY - photoInOffset.top)/scaleFactor);
     // console.log(mmX, mmY);
     cursorX.html(mmX);
     cursorY.html(mmY);
@@ -196,11 +196,35 @@ $(document).ready(function() {
             "left": curBoxX + "px",
             "top": curBoxY + "px"
           });
-        }).mouseup(function(){
-          photo.off("mousemove");
           boxCursorX.val(curBoxX);
           boxCursorY.val(curBoxY);
+        }).mouseup(function(){
+          photo.off("mousemove");
         });
+      });
+
+      curBox.find($(".p-t")).mousedown(function(e){
+        e.stopPropagation();
+        var pos = curBox.css("top").replace("px", '');
+        var h = curBox.css("height").replace("px", '');
+        var photoOffset = photo.offset();
+        var wY = e.pageY - $(this).offset().top - 4;
+        
+        photo.mousemove(function(e){
+          var xxx = (+pos) + +h;
+          var yyy = e.pageY - photoOffset.top - wY;
+          curBox.css({
+            "top":  yyy + "px",
+            "height": xxx - yyy + "px"
+          });
+          
+          boxCursorY.val(yyy);
+          boxHeight.val(xxx - yyy);
+         
+        }).mouseup(function(){
+          photo.off("mousemove");
+        });;
+        
       });
 
       applyButton.click(function(){
@@ -258,10 +282,10 @@ $(document).ready(function() {
         .attr("data-width", boxWidthVal)
         .attr("data-height", boxHeightVal);
 
-        var pointT = $('<div class="point p-t"></div>').appendTo(box);
-        var pointR = $('<div class="point p-r"></div>').appendTo(box);
-        var pointL = $('<div class="point p-l"></div>').appendTo(box);
-        var pointB = $('<div class="point p-b"></div>').appendTo(box);
+        $('<div class="point p-t"></div>').appendTo(box);
+        $('<div class="point p-r"></div>').appendTo(box);
+        $('<div class="point p-l"></div>').appendTo(box);
+        $('<div class="point p-b"></div>').appendTo(box);
 
         boxCursorX.val(relX);
         boxCursorY.val(relY);

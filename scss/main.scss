@@ -101,6 +101,23 @@
 .box {
   position: absolute;
   background: rgba($colorBlue, 0.5);
+  &.active {
+    &:before,
+    &:after {
+      content: '';
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+  &.active:after {
+    border: 1px dashed $colorBlack;
+  }
+  &.active:before {
+    border: 1px solid $colorWhite;
+  }
   .point {
     display: none;
   }
@@ -110,10 +127,9 @@
     position: absolute;
     width: $pointSize;
     height: $pointSize;
-    background: $colorGreen;
-    &:hover {
-      background: $colorBlue;
-    }
+    background: $colorWhite;
+    border: 1px solid $colorBlack;
+    z-index: 1;
     &.p-t {
       top: ($pointSize / -2);
       left: 50%;
