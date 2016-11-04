@@ -100,6 +100,7 @@ body {
 }
 
 .size {
+	display: none;
 	font-family: 'Courier New', sans-serif;
 	overflow: hidden;
 	font-size: 0;
@@ -127,6 +128,39 @@ body {
 .box {
 	position: absolute;
 	background: rgba(44, 86, 157, 0.5);
+}
+.box .point {
+	display: none;
+}
+.box.active .point {
+	display: block;
+	position: absolute;
+	width: 8px;
+	height: 8px;
+	background: #7fba00;
+}
+.box.active .point:hover {
+	background: #2c569d;
+}
+.box.active .point.p-t {
+	top: -4px;
+	left: 50%;
+	margin: 0 0 0 -4px;
+}
+.box.active .point.p-r {
+	top: 50%;
+	right: -4px;
+	margin: -4px 0 0 0;
+}
+.box.active .point.p-l {
+	top: 50%;
+	left: -4px;
+	margin: -4px 0 0 0;
+}
+.box.active .point.p-b {
+	bottom: -4px;
+	left: 50%;
+	margin: 0 0 0 -4px;
 }
 
 .box-button {

@@ -49,9 +49,9 @@
         <div class="col-in">
           <div class="col col-wide">Hold SHIFT key to step by 10 pixels</div>
           
-          <div class="col">BW:<br /> <input id="boxWidth" type="number" /><br />BH:<br /> <input id="boxHeight" type="number" /></div>
-          <div class="col">BX:<br /> <input id="boxCursorX" type="number" /><br />BY:<br /> <input id="boxCursorY" type="number" /></div>
-          <div class="col"><button class="box-button" id="boxButton" type="button">Done</button></div>
+          <div class="col">BW:<br /> <input class="input" id="boxWidth" type="number" /><br />BH:<br /> <input class="input" id="boxHeight" type="number" /></div>
+          <div class="col">BX:<br /> <input class="input" id="boxCursorX" type="number" /><br />BY:<br /> <input class="input" id="boxCursorY" type="number" /></div>
+          
         </div>
       </div>
       <div class="line size">
@@ -59,6 +59,9 @@
           
           <div class="col">W: <span id="documentWidth"></span><br />H: <span id="documentHeight" /></span></div>
           <div class="col">X: <span id="cursorX"></span><br />Y: <span id="cursorY" /></span></div>
+          <div class="col"><button class="box-button" id="doneButton" type="button">Done</button></div>
+          <div class="col"><button class="box-button" id="applyButton" type="button">Apply</button></div>
+          
         </div>
       </div>
       <div class="line info">
@@ -86,7 +89,7 @@
           </ul>
         </div>
         <div class="line">
-          <button class="button" id="infoAddButton" type="button">Save</button>
+          <button class="button" id="infoAddButton" type="button">Apply</button>
         </div>
       </div>
       

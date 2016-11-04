@@ -65,6 +65,7 @@
 }
 
 .size {
+  display: none;
   font-family: 'Courier New', sans-serif;
   overflow: hidden;
   font-size: 0;
@@ -92,6 +93,41 @@
 .box {
   position: absolute;
   background: rgba($colorBlue, 0.5);
+  .point {
+    display: none;
+  }
+  $pointSize: 8px;
+  &.active .point {
+    display: block;
+    position: absolute;
+    width: $pointSize;
+    height: $pointSize;
+    background: $colorGreen;
+    &:hover {
+      background: $colorBlue;
+    }
+    &.p-t {
+      top: ($pointSize / -2);
+      left: 50%;
+      margin: 0 0 0 ($pointSize / -2);
+    }
+    &.p-r {
+      top: 50%;
+      right: ($pointSize / -2);
+      margin: ($pointSize / -2) 0 0 0;
+    }
+    &.p-l {
+      top: 50%;
+      left: ($pointSize / -2);
+      margin: ($pointSize / -2) 0 0 0;
+    }
+    &.p-b {
+      bottom: ($pointSize / -2);
+      left: 50%;
+      margin: 0 0 0 ($pointSize / -2);
+    }
+    
+  }
 }
 
 .box-button {

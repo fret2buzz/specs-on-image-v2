@@ -27,7 +27,10 @@ $(document).ready(function() {
   var boxCursorY = $("#boxCursorY");
   var documentWidth = $("#documentWidth");
   var documentHeight = $("#documentHeight");
-  var boxButton = $("#boxButton");
+  
+  var doneButton = $("#doneButton");
+  var applyButton = $("#applyButton");
+
   var elementsBox;
   var elementsSpot;
   var scaleFactor = 1;
@@ -43,6 +46,9 @@ $(document).ready(function() {
   var colors = infoColors.find("input");
 
   var infoAddButton = $("#infoAddButton");
+  var curBox;
+  var curBoxX;
+  var curBoxY;
   
   var resetForm = function(){
     $("#infoSubject").val('');
@@ -105,6 +111,12 @@ $(document).ready(function() {
       infoForm.hide();
       resetForm();
     }
+    if($(this).is("#sizeTool")){
+      sizeForm.show();
+    } else {
+      sizeForm.hide();
+      done();
+    }
   });
 
   // choose image
@@ -118,7 +130,7 @@ $(document).ready(function() {
     }
   }
   $("#imageInput").click(function(){
-    imageFile.attr("style", "").attr("src", "");
+    $(this).val("");
     resetFunction();
   });
   $("#imageInput").change(function(){
@@ -149,31 +161,66 @@ $(document).ready(function() {
   });
 
   //setting the sizes
-  var apply = function(){
-    var curBox = $(".box-" + boxCount);
-    var boxWidthVal = boxWidth.val();
-    var boxHeightVal = boxHeight.val();
-    curBox.css({
-      "left": boxCursorX.val() + "px",
-      "top": boxCursorY.val() + "px",
-      "width": boxWidthVal + "px",
-      "height": boxHeightVal + "px"
-    }).attr("data-width", boxWidthVal).attr("data-height", boxHeightVal);
-
-    if(+boxWidthVal > +boxHeightVal){
-     curBox.addClass("w");
-     curBox.removeClass("h");
+  var orientation = function(x,y){
+    if(+x > +y){
+      var curBox = $(".box-" + boxCount);
+      curBox.addClass("w");
+      curBox.removeClass("h");
     } else {
-     curBox.addClass("h");
-     curBox.removeClass("w");
+      curBox.addClass("h");
+      curBox.removeClass("w");
     }
   };
   var change = function(){
-    boxCursorX.add(boxCursorY).add(boxWidth).add(boxHeight).change(function(){
-      if(edited == false) {
-        apply();
-      }
-    });
+    if(edited == false) {
+      var curBox = $(".box-" + boxCount);
+
+      curBox.mousedown(function(e){
+        console.log($(this));
+        //getting the left top corner of curBox
+        var curBoxOffset = $(this).offset();
+        //cursor pos on the curBox - left and top corner
+        var nX = Math.ceil((e.pageX - curBoxOffset.left)/scaleFactor);
+        var nY = Math.ceil((e.pageY - curBoxOffset.top)/scaleFactor);
+        // console.log(nX, nY);
+        photo.mousemove(function(e){
+          //cursor pos on the photo - nX and nY
+          var photoOffset = $(this).offset();
+          curBoxX = Math.ceil((e.pageX - photoOffset.left)/scaleFactor) - nX;
+          curBoxY = Math.ceil((e.pageY - photoOffset.top)/scaleFactor) - nY;
+          // console.log(curBoxX, curBoxY);
+          curBox.css({
+            "left": curBoxX + "px",
+            "top": curBoxY + "px"
+          });
+        }).mouseup(function(){
+          photo.off("mousemove");
+          boxCursorX.val(curBoxX);
+          boxCursorY.val(curBoxY);
+        });
+      });
+
+      applyButton.click(function(){
+        var boxWidthVal = boxWidth.val();
+        var boxHeightVal = boxHeight.val();
+        curBox.css({
+          "left": boxCursorX.val() + "px",
+          "top": boxCursorY.val() + "px",
+          "width": boxWidthVal + "px",
+          "height": boxHeightVal + "px"
+        }).attr("data-width", boxWidthVal).attr("data-height", boxHeightVal);
+
+        orientation(boxWidthVal, boxHeightVal);
+      });
+    }
+  };
+  var done = function(){
+    edited = true;
+    photo.off("mousemove");
+    doneButton.hide();
+    applyButton.hide();
+    boxCursorX.add(boxCursorY).add(boxWidth).add(boxHeight).val('');
+    $(".box-" + boxCount).removeClass("active");
   };
   $(document).keydown(function (e) {
     if (e.keyCode == 16) {
@@ -184,11 +231,8 @@ $(document).ready(function() {
       boxCursorX.add(boxCursorY).add(boxWidth).add(boxHeight).attr("step", "");
     }
   });
-  boxButton.click(function(){
-    edited = true;
-    boxButton.hide();
-    boxCursorX.add(boxCursorY).add(boxWidth).add(boxHeight).val('');
-    $(".box-" + boxCount).removeClass("active");
+  doneButton.click(function(){
+    done();
   });
   photo.click(function(e){
     if($("#sizeTool").is(":checked")){
@@ -196,8 +240,8 @@ $(document).ready(function() {
         var parentOffset = $(this).offset();
         var relX = Math.ceil((e.pageX - parentOffset.left)/scaleFactor);
         var relY = Math.ceil((e.pageY - parentOffset.top)/scaleFactor);
-        var boxWidthVal = Math.ceil(100);
-        var boxHeightVal = Math.ceil(20);
+        var boxWidthVal = 100;
+        var boxHeightVal = 20;
         boxCount++;
         var box = $('<div class="box box-' + boxCount + ' w"></div>').css({
           "left": relX,
@@ -210,11 +254,17 @@ $(document).ready(function() {
         .attr("data-width", boxWidthVal)
         .attr("data-height", boxHeightVal);
 
+        var pointT = $('<div class="point p-t"></div>').appendTo(box);
+        var pointR = $('<div class="point p-r"></div>').appendTo(box);
+        var pointL = $('<div class="point p-l"></div>').appendTo(box);
+        var pointB = $('<div class="point p-b"></div>').appendTo(box);
+
         boxCursorX.val(relX);
         boxCursorY.val(relY);
         boxWidth.val(boxWidthVal);
         boxHeight.val(boxHeightVal);
-        boxButton.show();
+        doneButton.show();
+        applyButton.show();
         edited = false;
         change();
       } else {
