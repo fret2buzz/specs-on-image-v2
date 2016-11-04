@@ -160,7 +160,7 @@ $(document).ready(function() {
       "height": boxHeightVal + "px"
     }).attr("data-width", boxWidthVal).attr("data-height", boxHeightVal);
 
-    if(boxWidthVal > boxHeightVal){
+    if(+boxWidthVal > +boxHeightVal){
      curBox.addClass("w");
      curBox.removeClass("h");
     } else {
