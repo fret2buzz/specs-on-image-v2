@@ -105,8 +105,9 @@ $(document).ready(function() {
       photo.attr("class", "");
       photo.addClass("photo " + $(this).attr("data-cursor"));
     };
-    if($(this).is("#infoTool")){
+    if($(this).is("#infoTool") || $(this).is("#spotTool")){
       infoForm.show();
+      resetForm();
     } else {
       infoForm.hide();
       resetForm();
@@ -270,17 +271,54 @@ $(document).ready(function() {
     }
   });
 
+  var editSpot = function(el){
+    if(el.hasClass("active")){
+      if(infoSubject.val() != ''){
+        el.attr("data-subject", infoSubject.val());
+      } else {
+        el.attr("data-subject", '');
+      }
+      
+      if(infoDescription.val() != ''){
+        el.attr("data-description", infoDescription.val());
+      } else {
+        el.attr("data-description", '');
+      }
+      
+      el.attr("data-color", $("#colors").find("input:checked").val());
+      el.find(".spot-in").css("backgroundColor",  $("#colors").find("input:checked").val());
+      
+      if(el.attr("data-subject") != '' || el.attr("data-description") != ''){
+        el.addClass("has-info");
+      } 
+      if(el.attr("data-subject") == '' && el.attr("data-description") == ''){
+        el.removeClass("has-info");
+      }
+      el.removeClass("active");
+      resetForm();
+    }
+  };
+
   // setting the spot
+  var spotEdited = true;
   photo.click(function(e){
-    if($("#spotTool").is(":checked")){
+    if($("#spotTool").is(":checked") && spotEdited){
       var parentOffset = $(this).offset();
       var relX = (e.pageX - parentOffset.left)/scaleFactor;
       var relY = (e.pageY - parentOffset.top)/scaleFactor;
       spotCount++;
-      var spotBox = $('<div class="spot"><span class="spot-in" data-id="'+spotCount+'"></span></div>').css({
+      var spotBox = $('<div class="spot active"><span class="spot-in" data-id="'+spotCount+'"></span></div>').css({
         "left": relX,
         "top": relY,
       }).appendTo(photoIn);
+      spotEdited = false;
+      if(spotEdited == false && spotBox.length != 0) {
+        infoAddButton.click(function(){
+          var spotBox = $(".spot.active");
+          editSpot(spotBox);
+          spotEdited = true;
+        });
+      }
     }
   });
 
@@ -349,29 +387,7 @@ $(document).ready(function() {
           }
 
           infoAddButton.click(function(){
-
-            if(self.hasClass("active")){
-
-              if(infoSubject.val() != ''){
-                self.attr("data-subject", infoSubject.val());
-              }
-              
-              if(infoDescription.val() != ''){
-                self.attr("data-description", infoDescription.val());
-              }
-              
-              self.attr("data-color", $("#colors").find("input:checked").val());
-              self.find(".spot-in").css("backgroundColor",  $("#colors").find("input:checked").val());
-              
-              if(self.attr("data-subject") != '' || self.attr("data-description") != ''){
-                self.addClass("has-info");
-              } 
-              if(self.attr("data-subject") == '' && self.attr("data-description") == ''){
-                self.removeClass("has-info");
-              }
-              self.removeClass("active");
-              resetForm();
-            };
+            editSpot(self);
           });
         }
       });

@@ -48,13 +48,11 @@
       border-color: $colorWhite;
     }
   }
-  &.cursor-cell {
-    .spot-in:hover {
-      border-color: $colorWhite;
-    }
-    .active .spot-in {
-      border-color: $colorWhite;
-    }
+  .spot-in:hover {
+    border-color: $colorWhite;
+  }
+  .active .spot-in {
+    border-color: $colorWhite;
   }
 }
 

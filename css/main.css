@@ -86,10 +86,10 @@ body {
 .photo.cursor-default .spot-in:hover {
 	border-color: white;
 }
-.photo.cursor-cell .spot-in:hover {
+.photo .spot-in:hover {
 	border-color: white;
 }
-.photo.cursor-cell .active .spot-in {
+.photo .active .spot-in {
 	border-color: white;
 }
 
