@@ -103,7 +103,7 @@ $(document).ready(function() {
   tools.find("input").click(function(){
     $(".spot").removeClass("active");
     resetForm();
-    
+
     if($(this).is(":checked")){
       photo.attr("class", "");
       photo.addClass("photo " + $(this).attr("data-cursor"));
@@ -348,7 +348,8 @@ $(document).ready(function() {
           $(".box").each(function(){
             i++;
             boxCount = i;
-            $(this).attr("class", "box box-" + i);
+            $(this)[0].className = $(this)[0].className.replace(/box\-\d/g, '');
+            $(this).addClass("box-" + i);
           });
         }
       });
