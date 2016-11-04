@@ -1,5 +1,6 @@
 $(document).ready(function() {
   var main = $(".main");
+  var mainIn = $(".main-in");
   var photo = $(".photo");
   var photoIn = $(".photo-in");
   var tools = $(".tools");
@@ -59,7 +60,7 @@ $(document).ready(function() {
 
   // set scale
   var setScale = function(num){
-    photo.css({"transform": "scale(" + num + ")"}).parent().scrollLeft(0).scrollTop(0);
+    mainIn.css({"transform": "scale(" + num + ")"}).parent().scrollLeft(0).scrollTop(0);
   };
 
   // clicking on scale buttons

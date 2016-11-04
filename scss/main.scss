@@ -14,12 +14,19 @@
   background: $colorGrey;
   user-select: none;
   position: relative;
+  &-in {
+    display: inline-block;
+    vertical-align: top;
+    padding: 40px;
+    white-space: nowrap;
+    transform: scale(1);
+    transform-origin: left top;
+  }
 }
 
 .photo {
-  transform: scale(1);
-  transform-origin: left top;
   image-rendering: pixelated;
+  position: relative;
   .photo-image {
     display: none;
     vertical-align: top;

@@ -49,16 +49,23 @@ body {
 	user-select: none;
 	position: relative;
 }
-
-.photo {
+.main-in {
+	display: inline-block;
+	vertical-align: top;
+	padding: 40px;
+	white-space: nowrap;
 	-webkit-transform: scale(1);
 	transform: scale(1);
 	-webkit-transform-origin: left top;
 	transform-origin: left top;
+}
+
+.photo {
 	-ms-interpolation-mode: nearest-neighbor;
 	image-rendering: -moz-crisp-edges;
 	image-rendering: -o-pixelated;
 	image-rendering: pixelated;
+	position: relative;
 }
 .photo .photo-image {
 	display: none;
