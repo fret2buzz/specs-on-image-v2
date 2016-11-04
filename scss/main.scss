@@ -1,13 +1,16 @@
 @import '_base.scss';
 
 .container {
-  display: flex;
-  flex-flow: row wrap;
+  // display: flex;
+  // flex-flow: row wrap;
   height: 100%;
-  align-items: stretch;
+  overflow: hidden;
+  background: rgba($colorBlue, 0.2);
+  // align-items: stretch;
 }
 
 .main {
+  float: left;
   height: 100%;
   overflow: auto;
   width: 60%;
@@ -15,7 +18,7 @@
   user-select: none;
   position: relative;
   &-in {
-    display: inline-block;
+    float: left;
     vertical-align: top;
     padding: 40px;
     white-space: nowrap;
@@ -64,6 +67,7 @@
 }
 
 .menu {
+  float: right;
   width: 40%;
   padding: 20px;
   background: rgba($colorBlue, 0.2);
