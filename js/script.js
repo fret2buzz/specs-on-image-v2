@@ -55,6 +55,7 @@ $(document).ready(function() {
     $("#infoSubject").val('');
     $("#infoDescription").val('');
     $("#colors").find("input").prop("checked", false);
+    spotEdited = true;
   };
 
 
@@ -93,6 +94,7 @@ $(document).ready(function() {
     photo.attr("class", "photo");
     resetForm();
     edited = true;
+    spotEdited = true;
   }
 
   // clicking on reset button
@@ -318,7 +320,6 @@ $(document).ready(function() {
         infoAddButton.click(function(){
           var spotBox = $(".spot.active");
           editSpot(spotBox);
-          spotEdited = true;
         });
       }
     }
