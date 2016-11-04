@@ -221,7 +221,7 @@
       input {
         opacity: 0;
         &:checked + label {
-          border-color: #fff;
+          border-color: $colorWhite;
         }
       }
       label {

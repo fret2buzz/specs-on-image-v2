@@ -259,7 +259,7 @@ body {
 	opacity: 0;
 }
 .colors ul li input:checked + label {
-	border-color: #fff;
+	border-color: white;
 }
 .colors ul li label {
 	position: absolute;
@@ -268,7 +268,7 @@ body {
 	width: 100%;
 	height: 100%;
 	border-radius: 50%;
-	border: 2px solid rbga(0, 0, 0, 0);
+	border: 2px solid transparent;
 	cursor: pointer;
 	font-size: 0;
 }

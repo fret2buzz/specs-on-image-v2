@@ -101,16 +101,17 @@ $(document).ready(function() {
 
   // setting the class to container according to tool
   tools.find("input").click(function(){
+    $(".spot").removeClass("active");
+    resetForm();
+    
     if($(this).is(":checked")){
       photo.attr("class", "");
       photo.addClass("photo " + $(this).attr("data-cursor"));
     };
     if($(this).is("#infoTool") || $(this).is("#spotTool")){
       infoForm.show();
-      resetForm();
     } else {
       infoForm.hide();
-      resetForm();
     }
     if($(this).is("#sizeTool")){
       sizeForm.show();
