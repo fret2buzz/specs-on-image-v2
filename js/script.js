@@ -179,12 +179,12 @@ $(document).ready(function() {
     if(edited == false) {
 
       curBox = $(".box-" + boxCount);
-      var photoOffset = photo.offset();
 
       //moving the box
       curBox.mousedown(function(e){
         //getting the left top corner of curBox
         var mvOffset = $(this).offset();
+        var photoOffset = photo.offset();
         //cursor pos on the curBox - left and top corner
         var mvElX = Math.ceil((e.pageX - mvOffset.left)/scaleFactor);
         var mvElY = Math.ceil((e.pageY - mvOffset.top)/scaleFactor);
@@ -213,7 +213,8 @@ $(document).ready(function() {
         var ptPos = boxCursorY.val();
         var ptH = boxHeight.val();
         var ptHelperY = Math.ceil((e.pageY - $(this).offset().top)/scaleFactor) - 4;
-        
+        var photoOffset = photo.offset();
+
         photo.mousemove(function(e){
           var ptA = (+ptPos) + +ptH;
           var ptB = Math.ceil((e.pageY - photoOffset.top)/scaleFactor) - ptHelperY;
@@ -238,7 +239,8 @@ $(document).ready(function() {
 
         var pbPos = boxCursorY.val();
         var pbHelperY = Math.ceil((e.pageY - $(this).offset().top)/scaleFactor) - 4;
-        
+        var photoOffset = photo.offset();
+
         photo.mousemove(function(e){
           var pbB = Math.ceil((e.pageY - photoOffset.top)/scaleFactor) - pbHelperY;
           curBox.css({
@@ -260,7 +262,8 @@ $(document).ready(function() {
 
         var prPos = boxCursorX.val();
         var prHelperX = Math.ceil((e.pageX - $(this).offset().left)/scaleFactor) - 4;
-        
+        var photoOffset = photo.offset();
+
         photo.mousemove(function(e){
           var prB = Math.ceil((e.pageX - photoOffset.left)/scaleFactor) - prHelperX;
           curBox.css({
@@ -283,6 +286,7 @@ $(document).ready(function() {
         var plPos = boxCursorX.val();
         var plH = boxWidth.val();
         var plHelperX = Math.ceil((e.pageX - $(this).offset().left)/scaleFactor) - 4;
+        var photoOffset = photo.offset();
         
         photo.mousemove(function(e){
           var plA = (+plPos) + +plH;
