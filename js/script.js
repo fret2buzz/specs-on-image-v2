@@ -164,17 +164,6 @@ $(document).ready(function() {
   });
 
   //setting the sizes
-  var orientation = function(x,y){
-    var curBox = $(".box-" + boxCount);
-    if(+x > +y){
-      curBox.addClass("w");
-      curBox.removeClass("h");
-    } else {
-      curBox.addClass("h");
-      curBox.removeClass("w");
-    }
-  };
-
   var change = function(){
     if(edited == false) {
 
@@ -287,7 +276,7 @@ $(document).ready(function() {
         var plH = boxWidth.val();
         var plHelperX = Math.ceil((e.pageX - $(this).offset().left)/scaleFactor) - 4;
         var photoOffset = photo.offset();
-        
+
         photo.mousemove(function(e){
           var plA = (+plPos) + +plH;
           var plB = Math.ceil((e.pageX - photoOffset.left)/scaleFactor) - plHelperX;
@@ -325,7 +314,6 @@ $(document).ready(function() {
     $(".box-" + boxCount).off("mousedown");
     doneButton.hide();
     applyButton.hide();
-    orientation(boxWidth.val(), boxHeight.val());
     boxCursorX.add(boxCursorY).add(boxWidth).add(boxHeight).val('');
     $(".box-" + boxCount).removeClass("active");
   };
@@ -354,7 +342,7 @@ $(document).ready(function() {
         var boxWidthVal = 100;
         var boxHeightVal = 20;
         boxCount++;
-        var box = $('<div class="box box-' + boxCount + ' w"></div>').css({
+        var box = $('<div class="box box-' + boxCount + '"></div>').css({
           "left": relX,
           "top": relY,
           "width": boxWidthVal + "px",
@@ -377,6 +365,7 @@ $(document).ready(function() {
         doneButton.show();
         applyButton.show();
         edited = false;
+        downloadLink.hide();
         change();
       }
     }
@@ -422,11 +411,13 @@ $(document).ready(function() {
         "left": relX,
         "top": relY,
       }).appendTo(photoIn);
+      downloadLink.hide();
       spotEdited = false;
       if(spotEdited == false && spotBox.length != 0) {
         infoAddButton.click(function(){
           var spotBox = $(".spot.active");
           editSpot(spotBox);
+          downloadLink.hide();
         });
       }
     }
@@ -468,6 +459,7 @@ $(document).ready(function() {
       elementsSpot.click(function(){
         if(removeTool.is(":checked")){
           $(this).remove();
+          downloadLink.hide();
           var i = 0;
           spotCount = 0;
           $(".spot").each(function(){
@@ -523,6 +515,23 @@ $(document).ready(function() {
   generateButton.click(function(){
     scaleFactor = 1;
     setScale(scaleFactor);
+    done();
+    //setting the orientation
+    var boxes = photo.find(".box");
+    // console.log(boxes);
+    boxes.each(function(){
+      var x = $(this).attr("data-width");
+      var y = $(this).attr("data-height");
+      // console.log(x , y);
+      if(+x > +y){
+        $(this).addClass("w");
+        $(this).removeClass("h");
+      } else {
+        $(this).addClass("h");
+        $(this).removeClass("w");
+      }
+    });
+
     var filename = $('#imageInput').val().split('\\').pop();
     var htmlHeader = '<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <title>'+filename+' - Generated HTML</title> <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"> <style type="text/css">.line .id,.spot-in:after{line-height:30px;text-align:center}.line .id,.spot-in:after,h1{text-align:center}*,:after,:before{margin:0;padding:0;box-sizing:border-box}button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0}body,html{width:100%;height:100%}body{font-family:Helvetica,Arial,sans-serif;font-size:12px}.container{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-flow:row wrap;-ms-flex-flow:row wrap;flex-flow:row wrap;-webkit-align-content:stretch;-ms-flex-line-pack:stretch;align-content:stretch;height:100%;overflow:hidden}h1{font-size:24px;font-weight:400;padding:0 0 20px}.line .id,.list .subject,.spot-in:after{font-size:16px;font-weight:700}.main,.side{padding:20px;overflow:auto;height:100%}.main{width:70%;background:rgba(204,204,204,.2)}.side{width:30%;background:rgba(44,86,157,.2)}.line,.list{overflow:hidden}.photo{margin:0 auto;position:relative}.box,.photo-in{position:absolute}.photo .photo-image{width:0;height:0;display:block;vertical-align:top}.photo-in{width:100%;height:100%;left:0;top:0}.box{background:rgba(255,0,255,.1)}.box.h:after,.box.w:after{background:rgba(44,86,157,.8);padding:4px;display:block;position:absolute;color:#fff}.box.w{height:17px!important;border-left:1px solid #ff00ff;border-right:1px solid #ff00ff}.box.w:after{content:attr(data-width);bottom:100%;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}.box.h{width:17px!important;border-top:1px solid #ff00ff;border-bottom:1px solid #ff00ff}.box.h:after{content:attr(data-height);top:50%;right:100%;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.box:before{content:"";position:absolute;left:50%;top:50%;background:#ff00ff}.line .id,.spot-in{background:rgba(44,86,157,.8)}.box.w:before{width:100%;height:1px;left:0;top:8px}.box.h:before{width:1px;height:100%;left:8px;top:0}.spot-in,.spot-in:after{position:absolute;left:50%;top:50%;border-radius:999px}.spot{position:absolute;width:1px;height:1px}.spot-in{width:30px;height:30px;margin:-14px 0 0 -14px}.spot-in:after{content:attr(data-id);width:100%;height:100%;color:#fff;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.line{padding:20px 0 0}.line:first-child{padding-top:0}.line .id{float:left;margin-right:15px;width:30px;height:30px;border-radius:999px;color:#fff}.list .subject{padding:0 0 5px}.list .description{font-size:14px}</style></head> <body> <div class="container">';
     var htmlFooter = '</div></body></html>';
