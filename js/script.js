@@ -48,8 +48,6 @@ $(document).ready(function() {
 
   var infoAddButton = $("#infoAddButton");
   var curBox;
-  var curBoxX;
-  var curBoxY;
   
   var resetForm = function(){
     $("#infoSubject").val('');
@@ -176,120 +174,131 @@ $(document).ready(function() {
       curBox.removeClass("w");
     }
   };
+
   var change = function(){
     if(edited == false) {
+
       curBox = $(".box-" + boxCount);
+      var photoOffset = photo.offset();
+
+      //moving the box
       curBox.mousedown(function(e){
         //getting the left top corner of curBox
-        var curBoxOffset = $(this).offset();
+        var mvOffset = $(this).offset();
         //cursor pos on the curBox - left and top corner
-        var nX = Math.ceil((e.pageX - curBoxOffset.left)/scaleFactor);
-        var nY = Math.ceil((e.pageY - curBoxOffset.top)/scaleFactor);
+        var mvElX = Math.ceil((e.pageX - mvOffset.left)/scaleFactor);
+        var mvElY = Math.ceil((e.pageY - mvOffset.top)/scaleFactor);
         // console.log(nX, nY);
         photo.mousemove(function(e){
           //cursor pos on the photo - nX and nY
-          var photoOffset = $(this).offset();
-          curBoxX = Math.ceil((e.pageX - photoOffset.left)/scaleFactor) - nX;
-          curBoxY = Math.ceil((e.pageY - photoOffset.top)/scaleFactor) - nY;
+          var mvX = Math.ceil((e.pageX - photoOffset.left)/scaleFactor) - mvElX;
+          var mvY = Math.ceil((e.pageY - photoOffset.top)/scaleFactor) - mvElY;
           // console.log(curBoxX, curBoxY);
           curBox.css({
-            "left": curBoxX + "px",
-            "top": curBoxY + "px"
+            "left": mvX + "px",
+            "top": mvY + "px"
           });
-          boxCursorX.val(curBoxX);
-          boxCursorY.val(curBoxY);
+          boxCursorX.val(mvX);
+          boxCursorY.val(mvY);
         }).mouseup(function(){
           photo.off("mousemove");
         });
       });
 
+      
+      //moving to top
       curBox.find($(".p-t")).mousedown(function(e){
         e.stopPropagation();
-        var pos = boxCursorY.val();
-        var h = boxHeight.val();
-        var photoOffset = photo.offset();
-        var wY = Math.ceil((e.pageY - $(this).offset().top)/scaleFactor) - 4;
+
+        var ptPos = boxCursorY.val();
+        var ptH = boxHeight.val();
+        var ptHelperY = Math.ceil((e.pageY - $(this).offset().top)/scaleFactor) - 4;
         
         photo.mousemove(function(e){
-          var xxx = (+pos) + +h;
-          var yyy = Math.ceil((e.pageY - photoOffset.top)/scaleFactor) - wY;
+          var ptA = (+ptPos) + +ptH;
+          var ptB = Math.ceil((e.pageY - photoOffset.top)/scaleFactor) - ptHelperY;
           curBox.css({
-            "top":  yyy + "px",
-            "height": xxx - yyy + "px"
+            "top":  ptB + "px",
+            "height": ptA - ptB + "px"
           });
           
-          boxCursorY.val(yyy);
-          boxHeight.val(xxx - yyy);
+          boxCursorY.val(ptB);
+          boxHeight.val(ptA - ptB);
+          curBox.attr("data-height", boxHeight.val());
          
         }).mouseup(function(){
           photo.off("mousemove");
-        });;
+        });
         
       });
 
+      //moving to bottom
       curBox.find($(".p-b")).mousedown(function(e){
         e.stopPropagation();
-        var pos2 = boxCursorY.val();
 
-        var photoOffset = photo.offset();
-        var wY = Math.ceil((e.pageY - $(this).offset().top)/scaleFactor) - 4;
+        var pbPos = boxCursorY.val();
+        var pbHelperY = Math.ceil((e.pageY - $(this).offset().top)/scaleFactor) - 4;
         
         photo.mousemove(function(e){
-          var yyy2 = Math.ceil((e.pageY - photoOffset.top)/scaleFactor) - wY;
+          var pbB = Math.ceil((e.pageY - photoOffset.top)/scaleFactor) - pbHelperY;
           curBox.css({
-            "height": yyy2 - +pos2 + "px"
+            "height": pbB - +pbPos + "px"
           });
    
-          boxHeight.val(yyy2 - +pos2);
+          boxHeight.val(pbB - +pbPos);
+          curBox.attr("data-height", boxHeight.val());
          
         }).mouseup(function(){
           photo.off("mousemove");
-        });;
+        });
         
       });
 
+      //moving to right
       curBox.find($(".p-r")).mousedown(function(e){
         e.stopPropagation();
-        var pos3 = boxCursorX.val();
 
-        var photoOffset = photo.offset();
-        var wY2 = Math.ceil((e.pageX - $(this).offset().left)/scaleFactor) - 4;
+        var prPos = boxCursorX.val();
+        var prHelperX = Math.ceil((e.pageX - $(this).offset().left)/scaleFactor) - 4;
         
         photo.mousemove(function(e){
-          var yyy3 = Math.ceil((e.pageX - photoOffset.left)/scaleFactor) - wY2;
+          var prB = Math.ceil((e.pageX - photoOffset.left)/scaleFactor) - prHelperX;
           curBox.css({
-            "width": yyy3 - +pos3 + "px"
+            "width": prB - +prPos + "px"
           });
    
-          boxWidth.val(yyy3 - +pos3);
+          boxWidth.val(prB - +prPos);
+          curBox.attr("data-width", boxWidth.val());
          
         }).mouseup(function(){
           photo.off("mousemove");
-        });;
+        });
         
       });
 
+      //moving to left
       curBox.find($(".p-l")).mousedown(function(e){
         e.stopPropagation();
-        var pos4 = boxCursorX.val();
-        var h4 = boxWidth.val();
-        var photoOffset = photo.offset();
-        var wY = Math.ceil((e.pageX - $(this).offset().left)/scaleFactor) - 4;
+
+        var plPos = boxCursorX.val();
+        var plH = boxWidth.val();
+        var plHelperX = Math.ceil((e.pageX - $(this).offset().left)/scaleFactor) - 4;
         
         photo.mousemove(function(e){
-          var xxx4 = (+pos4) + +h4;
-          var yyy4 = Math.ceil((e.pageX - photoOffset.left)/scaleFactor) - wY;
+          var plA = (+plPos) + +plH;
+          var plB = Math.ceil((e.pageX - photoOffset.left)/scaleFactor) - plHelperX;
           curBox.css({
-            "left":  yyy4 + "px",
-            "width": xxx4 - yyy4 + "px"
+            "left":  plB + "px",
+            "width": plA - plB + "px"
           });
           
-          boxCursorX.val(yyy4);
-          boxWidth.val(xxx4 - yyy4);
+          boxCursorX.val(plB);
+          boxWidth.val(plA - plB);
+          curBox.attr("data-width", boxWidth.val());
          
         }).mouseup(function(){
           photo.off("mousemove");
-        });;
+        });
         
       });
 
@@ -302,20 +311,21 @@ $(document).ready(function() {
           "width": boxWidthVal + "px",
           "height": boxHeightVal + "px"
         }).attr("data-width", boxWidthVal).attr("data-height", boxHeightVal);
-
-        orientation(boxWidthVal, boxHeightVal);
       });
     }
   };
+
   var done = function(){
     edited = true;
     photo.off("mousemove");
     $(".box-" + boxCount).off("mousedown");
     doneButton.hide();
     applyButton.hide();
+    orientation(boxWidth.val(), boxHeight.val());
     boxCursorX.add(boxCursorY).add(boxWidth).add(boxHeight).val('');
     $(".box-" + boxCount).removeClass("active");
   };
+
   $(document).keydown(function (e) {
     if (e.keyCode == 16) {
       boxCursorX.add(boxCursorY).add(boxWidth).add(boxHeight).attr("step", 10);
@@ -325,9 +335,12 @@ $(document).ready(function() {
       boxCursorX.add(boxCursorY).add(boxWidth).add(boxHeight).attr("step", "");
     }
   });
+
+  // Done button
   doneButton.click(function(){
     done();
   });
+
   photo.click(function(e){
     if($("#sizeTool").is(":checked")){
       if(edited) {
