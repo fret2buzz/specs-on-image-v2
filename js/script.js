@@ -166,9 +166,7 @@ $(document).ready(function() {
   //setting the sizes
   var change = function(){
     if(edited == false) {
-
-      curBox = $(".box-" + boxCount);
-
+      var curBox = $(".box.active");
       //moving the box
       curBox.mousedown(function(e){
         //getting the left top corner of curBox
@@ -311,11 +309,19 @@ $(document).ready(function() {
   var done = function(){
     edited = true;
     photo.off("mousemove");
-    $(".box-" + boxCount).off("mousedown");
+    var curBox = $(".box.active");
+    
+    var pt = curBox.find($(".p-t"));
+    var pr = curBox.find($(".p-r"));
+    var pb = curBox.find($(".p-b"));
+    var pl = curBox.find($(".p-l"));
+    curBox.add(pt).add(pr).add(pb).add(pl).off("mousedown");
+    
     doneButton.hide();
     applyButton.hide();
     boxCursorX.add(boxCursorY).add(boxWidth).add(boxHeight).val('');
-    $(".box-" + boxCount).removeClass("active");
+    curBox.removeClass("active");
+    editSize.prop("disabled", false);
   };
 
   $(document).keydown(function (e) {
@@ -332,10 +338,12 @@ $(document).ready(function() {
   doneButton.click(function(){
     done();
   });
-
+  
+  var editSize = $("#editSize");
+  var elementsBox;
   photo.click(function(e){
     if($("#sizeTool").is(":checked")){
-      if(edited) {
+      if(edited && editSize.is(":checked") != true) {
         var parentOffset = $(this).offset();
         var relX = Math.ceil((e.pageX - parentOffset.left)/scaleFactor);
         var relY = Math.ceil((e.pageY - parentOffset.top)/scaleFactor);
@@ -358,18 +366,47 @@ $(document).ready(function() {
         $('<div class="point p-l"></div>').appendTo(box);
         $('<div class="point p-b"></div>').appendTo(box);
 
+      
         boxCursorX.val(relX);
         boxCursorY.val(relY);
         boxWidth.val(boxWidthVal);
         boxHeight.val(boxHeightVal);
-        doneButton.show();
-        applyButton.show();
-        edited = false;
-        downloadLink.hide();
+
+        editedFalse();
         change();
+        elementsBox = $(".box");
+        editSizeFunc();
       }
     }
   });
+
+  var editedFalse = function(){
+    doneButton.show();
+    applyButton.show();
+    edited = false;
+    downloadLink.hide();
+    editSize.prop("disabled", true);
+  };
+
+  var editSizeFunc = function(){
+      elementsBox.click(function(e){
+        console.log(editSize.is(":checked"));
+        if($("#sizeTool").is(":checked") && edited && editSize.is(":checked")){
+          var offset = $(this).offset();
+          var offsetParent = $(this).parent().offset();
+          var relX = Math.ceil((offset.left - offsetParent.left)/scaleFactor);
+          var relY = Math.ceil((offset.top - offsetParent.top)/scaleFactor);
+          console.log(relX, relY);
+          $(this).addClass("active");
+          boxCursorX.val(relX);
+          boxCursorY.val(relY);
+          boxWidth.val($(this).width());
+          boxHeight.val($(this).height());
+          editedFalse();
+          change();
+        }
+      });
+  };
 
   var editSpot = function(el){
     if(el.hasClass("active")){
