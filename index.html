@@ -10,7 +10,6 @@
 </head>
 <body>
   <div class="container">
-    
     <div class="main">
       <div class="main-in">
         <div class="photo">
@@ -27,6 +26,9 @@
       <div class="line tools">
         <div class="adi-cr adi-cr-radio">
           <input type="radio" id="sizeTool" data-cursor="cursor-crosshair" name="tools" /><label for="sizeTool">Measure size</label>
+        </div>
+        <div class="adi-cr adi-cr-checkbox">
+          <input id="editSize" type="checkbox" data-cursor="cursor-crosshair" disabled="disabled" /> <label for="editSize">Edit position and size of the selection</label>
         </div>
         <div class="adi-cr adi-cr-radio">
           <input type="radio" id="spotTool" data-cursor="cursor-pointer" name="tools" /><label for="spotTool">Add a spot</label>
@@ -47,27 +49,25 @@
         <button class="button" data-scale="5" type="button">x5</button>
         <button class="button reset" type="button">Reset all</button>
       </div>
-      <div class="line size">
-        <div class="col-in">
-          <div class="col col-wide"><input id="editSize" type="checkbox" disabled="disabled" /> <label for="editSize">Edit position and size of the selection</label></div>
-
-          
-          <div class="col">BW:<br /> <input class="input" id="boxWidth" type="number" /><br />BH:<br /> <input class="input" id="boxHeight" type="number" /></div>
-          <div class="col">BX:<br /> <input class="input" id="boxCursorX" type="number" /><br />BY:<br /> <input class="input" id="boxCursorY" type="number" /></div>
-          <div class="col col-wide">Hold SHIFT key to step by 10 pixels</div>
+        <div class="size">
+          <div class="line">
+            <div class="line-in">
+              <div class="col coordinates">BW: <input class="input" id="boxWidth" type="number" /><br />BH: <input class="input" id="boxHeight" type="number" /></div>
+              <div class="col coordinates">BX: <input class="input" id="boxCursorX" type="number" /><br />BY: <input class="input" id="boxCursorY" type="number" /></div>
+              
+              <div class="col col-wide">Hold SHIFT key to step by 10 pixels</div>
+            </div>
+          </div>
+          <div class="line">
+            <div class="line-in">
+              <div class="col coordinates">W: <span id="documentWidth"></span><br />H: <span id="documentHeight" /></span></div>
+              <div class="col coordinates">X: <span id="cursorX"></span><br />Y: <span id="cursorY" /></span></div>
+              <div class="col"><button class="box-button" id="doneButton" type="button">Done</button></div>
+              <div class="col"><button class="box-button" id="applyButton" type="button">Apply</button></div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="line size">
-        <div class="col-in">
-          
-          <div class="col">W: <span id="documentWidth"></span><br />H: <span id="documentHeight" /></span></div>
-          <div class="col">X: <span id="cursorX"></span><br />Y: <span id="cursorY" /></span></div>
-          <div class="col"><button class="box-button" id="doneButton" type="button">Done</button></div>
-          <div class="col"><button class="box-button" id="applyButton" type="button">Apply</button></div>
-          
-        </div>
-      </div>
-      <div class="line info">
+        <div class="line info">
         <div class="line">
           <label class="label" for="infoSubject">Subject</label>
           <input class="input" id="infoSubject" type="text" />

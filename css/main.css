@@ -98,32 +98,6 @@ body {
 	padding: 20px;
 }
 
-.size {
-	display: none;
-	font-family: 'Courier New', sans-serif;
-	overflow: hidden;
-	font-size: 0;
-}
-.size input {
-	font-family: 'Courier New', sans-serif;
-	font-size: 14px;
-}
-.size-in {
-	margin: -10px 0 0 -10px;
-}
-
-.col {
-	font-size: 14px;
-	width: 50%;
-	display: inline-block;
-	vertical-align: top;
-	padding: 10px 0 0 10px;
-}
-
-.col-wide {
-	width: 100%;
-}
-
 .box {
 	position: absolute;
 	background: rgba(44, 86, 157, 0.5);
@@ -229,8 +203,32 @@ body {
 	position: relative;
 	padding: 10px 0 0;
 }
+.line .line-in {
+	overflow: hidden;
+	font-size: 0;
+	margin: -10px 0 0 -10px;
+}
+.line .col {
+	font-size: 12px;
+	width: 50%;
+	display: inline-block;
+	vertical-align: top;
+	padding: 10px 0 0 10px;
+}
+.line .coordinates {
+	font-family: 'Courier New', sans-serif;
+	font-size: 14px;
+}
+.line .col-wide {
+	width: 100%;
+}
 .line:first-child {
 	padding: 0;
+}
+
+.size {
+	padding: 10px 0 0;
+	display: none;
 }
 
 .label {
@@ -239,12 +237,14 @@ body {
 }
 
 .input {
-	width: 100%;
+	display: block;
 	font-family: 'Courier New', sans-serif;
 	font-size: 14px;
 	border: 1px solid #ccc;
 	padding: 5px;
 	resize: none;
+	background: white;
+	width: 100%;
 }
 .input:focus {
 	outline: none;
@@ -304,13 +304,6 @@ body {
 	padding: 0 12px;
 }
 
-.tools {
-	border: 1px solid #ccc;
-	background: rgba(255, 255, 255, 0.5);
-	padding: 10px;
-	margin: 10px 0 0;
-}
-
 button {
 	padding: 4px 8px;
 	background: white;
@@ -363,8 +356,8 @@ button:focus {
 	border: 1px solid #ccc;
 	background: white;
 	left: 0;
-	top: 50%;
-	margin: -12px 0 0;
+	top: 0;
+	margin: 0;
 	border-radius: 999px;
 }
 
@@ -378,4 +371,34 @@ button:focus {
 	top: 8px;
 	border-radius: 999px;
 	z-index: 1;
+}
+
+.adi-cr-checkbox label:after {
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	content: '';
+	border: 1px solid #ccc;
+	background: white;
+	left: 0;
+	top: 0;
+	margin: 0;
+}
+
+.adi-cr-checkbox input:checked + label:before {
+	-webkit-transform: rotate(-135deg);
+	transform: rotate(-135deg);
+	width: 8px;
+	height: 12px;
+	position: absolute;
+	content: '';
+	border-top: 3px solid #2c569d;
+	border-left: 3px solid #2c569d;
+	left: 8px;
+	top: 5px;
+	z-index: 1;
+}
+
+.adi-cr-checkbox input:disabled + label {
+	opacity: 0.6;
 }

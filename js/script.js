@@ -114,11 +114,15 @@ $(document).ready(function() {
     } else {
       infoForm.hide();
     }
-    if($(this).is("#sizeTool")){
+    if($(this).is("#sizeTool") || $(this).is("#editSize")){
       sizeForm.show();
+      if($(".box").length != 0) {
+        $("#editSize").prop("disabled", false);
+      }
     } else {
       sizeForm.hide();
       done();
+      $("#editSize").prop("checked", false).prop("disabled", true);
     }
   });
 
@@ -165,6 +169,11 @@ $(document).ready(function() {
 
   //setting the sizes
   var change = function(){
+    doneButton.show();
+    applyButton.show();
+    edited = false;
+    downloadLink.hide();
+    editSize.prop("disabled", true);
     if(edited == false) {
       var curBox = $(".box.active");
       //moving the box
@@ -296,7 +305,7 @@ $(document).ready(function() {
       applyButton.click(function(){
         var boxWidthVal = boxWidth.val();
         var boxHeightVal = boxHeight.val();
-        curBox.css({
+        $(".box.active").css({
           "left": boxCursorX.val() + "px",
           "top": boxCursorY.val() + "px",
           "width": boxWidthVal + "px",
@@ -371,22 +380,12 @@ $(document).ready(function() {
         boxCursorY.val(relY);
         boxWidth.val(boxWidthVal);
         boxHeight.val(boxHeightVal);
-
-        editedFalse();
         change();
         elementsBox = $(".box");
         editSizeFunc();
       }
     }
   });
-
-  var editedFalse = function(){
-    doneButton.show();
-    applyButton.show();
-    edited = false;
-    downloadLink.hide();
-    editSize.prop("disabled", true);
-  };
 
   var editSizeFunc = function(){
       elementsBox.click(function(e){
@@ -402,7 +401,7 @@ $(document).ready(function() {
           boxCursorY.val(relY);
           boxWidth.val($(this).width());
           boxHeight.val($(this).height());
-          editedFalse();
+
           change();
         }
       });

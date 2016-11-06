@@ -72,32 +72,6 @@
   padding: 20px;
 }
 
-.size {
-  display: none;
-  font-family: 'Courier New', sans-serif;
-  overflow: hidden;
-  font-size: 0;
-  input {
-    font-family: 'Courier New', sans-serif;
-    font-size: 14px;
-  }
-  &-in {
-    margin: -10px 0 0 -10px;
-  }
-}
-
-.col {
-  font-size: 14px;
-  width: 50%;
-  display: inline-block;
-  vertical-align: top;
-  padding: 10px 0 0 10px;
-}
-
-.col-wide {
-  width: 100%;
-}
-
 .box {
   position: absolute;
   background: rgba($colorBlue, 0.5);
@@ -205,9 +179,37 @@
   overflow: hidden;
   position: relative;
   padding: 10px 0 0;
+
+  .line-in {
+    overflow: hidden;
+    font-size: 0;
+    margin: -10px 0 0 -10px;
+  }
+
+  .col {
+    font-size: 12px;
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+    padding: 10px 0 0 10px;
+  }
+
+  .coordinates {
+    font-family: 'Courier New', sans-serif;
+    font-size: 14px;
+  }
+
+  .col-wide {
+    width: 100%;
+  }
   &:first-child {
     padding: 0;
   }
+}
+
+.size {
+  padding: 10px 0 0;
+  display: none;
 }
 
 .label {
@@ -216,12 +218,14 @@
 }
 
 .input {
-  width: 100%;
+  display: block;
   font-family: 'Courier New', sans-serif;
   font-size: 14px;
   border: 1px solid $colorGrey;
   padding: 5px;
   resize: none;
+  background: $colorWhite;
+  width: 100%;
   &:focus {
     outline: none;
     border: 1px solid $colorRed;
@@ -283,12 +287,12 @@
   }
 }
 
-.tools {
-  border: 1px solid $colorGrey;
-  background: rgba($colorWhite, 0.5);
-  padding: 10px;
-  margin: 10px 0 0;
-}
+// .tools {
+//   border: 1px solid $colorGrey;
+//   background: rgba($colorWhite, 0.5);
+//   padding: 10px;
+//   margin: 10px 0 0;
+// }
 
 button {
   padding: 4px 8px;
@@ -343,8 +347,8 @@ button {
     border: 1px solid $colorGrey;
     background: $colorWhite;
     left: 0;
-    top: 50%;
-    margin: -12px 0 0;
+    top: 0;
+    margin: 0;
     border-radius: 999px;
   }
 }
@@ -361,4 +365,37 @@ button {
     border-radius: 999px;
     z-index: 1;
   }
+}
+
+.adi-cr-checkbox label {
+  &:after {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    content: '';
+    border: 1px solid $colorGrey;
+    background: $colorWhite;
+    left: 0;
+    top: 0;
+    margin: 0;
+  }
+}
+
+.adi-cr-checkbox input:checked + label {
+  &:before {
+    transform: rotate(-135deg);
+    width: 8px;
+    height: 12px;
+    position: absolute;
+    content: '';
+    border-top: 3px solid $colorBlue;
+    border-left: 3px solid $colorBlue;
+    left: 8px;
+    top: 5px;
+    z-index: 1;
+  }
+}
+
+.adi-cr-checkbox input:disabled + label {
+  opacity: 0.6;
 }
