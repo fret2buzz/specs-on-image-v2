@@ -576,10 +576,10 @@ $(document).ready(function() {
       var elementsSpot = $(".spot");
       var text = '';
       elementsSpot.each(function(){
-        var htmlId = $(this).find(".spot-in").attr("data-id");
-        var htmlSubject = $(this).attr("data-subject");
-        var htmlDescription = $(this).attr("data-description");
-        if(htmlSubject != undefined || htmlDescription != undefined){
+        if($(this).hasClass("has-info")){
+          var htmlId = $(this).find(".spot-in").attr("data-id");
+          var htmlSubject = $(this).attr("data-subject");
+          var htmlDescription = $(this).attr("data-description");
           text = text + '<div class="line"><span style="background-color:' + $(this).find(".spot-in").css("backgroundColor") + '" class="id">' + htmlId + '</span><dl class="list"><dt class="subject">' + htmlSubject + '</dt><dd class="description">' + htmlDescription + '</dd></dl></div>';
         }
       });
