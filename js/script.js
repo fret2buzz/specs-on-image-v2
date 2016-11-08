@@ -280,12 +280,12 @@ $(document).ready(function() {
         e.stopPropagation();
 
         var plPos = boxCursorX.val();
-        var plH = boxWidth.val();
+        var plW = boxWidth.val();
         var plHelperX = Math.ceil((e.pageX - $(this).offset().left)/scaleFactor) - 4;
         var photoOffset = photo.offset();
 
         photo.mousemove(function(e){
-          var plA = (+plPos) + +plH;
+          var plA = (+plPos) + +plW;
           var plB = Math.ceil((e.pageX - photoOffset.left)/scaleFactor) - plHelperX;
           curBox.css({
             "left":  plB + "px",
