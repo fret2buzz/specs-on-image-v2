@@ -389,18 +389,18 @@ $(document).ready(function() {
 
   var editSizeFunc = function(){
       elementsBox.click(function(e){
-        console.log(editSize.is(":checked"));
+        
         if($("#sizeTool").is(":checked") && edited && editSize.is(":checked")){
           var offset = $(this).offset();
           var offsetParent = $(this).parent().offset();
           var relX = Math.ceil((offset.left - offsetParent.left)/scaleFactor);
           var relY = Math.ceil((offset.top - offsetParent.top)/scaleFactor);
-          console.log(relX, relY);
+          // console.log(relX, relY);
           $(this).addClass("active");
           boxCursorX.val(relX);
           boxCursorY.val(relY);
-          boxWidth.val($(this).width());
-          boxHeight.val($(this).height());
+          boxWidth.val($(this).width()/scaleFactor);
+          boxHeight.val($(this).height()/scaleFactor);
 
           change();
         }
