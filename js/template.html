@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>{$filename} - Generated HTML</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<style type="text/css">
+			{$styles}
+		</style>
+		<link rel="stylesheet" type="text/css" href="../css/view.css">
+	</head>
+	<body>
+		<div class="container">
+			<div class="main">'+$(".main").html()+'</div>
+			<div class="side">
+				<h1 class="filename">'+filename+'</h1>
+				<div class="lines">
+					<div class="line"><span style="background-color:' + $(this).find(".spot-in").css("backgroundColor") + '" class="id">' + htmlId + '</span><dl class="list"><dt class="subject">' + htmlSubject + '</dt><dd class="description">' + htmlDescription + '</dd></dl></div>
+				</div>
+			</div>
+		</div>
+		<script type='text/javascript'>
+			var spots = document.getElementsByClassName('id');
+			for (var i=0;i<spots.length;i++) {
+				spots[i].addEventListener('click', function() {
+						var currentSpot = document.getElementById('spot'+ this.innerText);
+						currentSpot.className = 'spot-in spot-highlight';
+						setTimeout(function(){currentSpot.className = 'spot-in';}, 400);
+					}
+				);
+			}
+		</script>
+	</body>
+</html>

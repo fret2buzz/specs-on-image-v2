@@ -28,6 +28,8 @@ body {
 	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
 	-webkit-flex-flow: row wrap;
 	-ms-flex-flow: row wrap;
 	flex-flow: row wrap;
@@ -169,6 +171,18 @@ h1 {
 	transform: translate(-50%, -50%);
 }
 
+.spot-in:after {
+	z-index: 2;
+	-webkit-transition: all 0.4s ease;
+	transition: all 0.4s ease;
+}
+
+.spot-highlight:after {
+	background-color: inherit;
+	-webkit-transform: scale(2);
+	transform: scale(2);
+}
+
 .line {
 	padding: 20px 0 0;
 	overflow: hidden;
@@ -188,6 +202,9 @@ h1 {
 	border-radius: 999px;
 	color: white;
 	text-align: center;
+}
+.line span {
+	cursor: pointer;
 }
 
 .list {

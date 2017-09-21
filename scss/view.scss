@@ -140,6 +140,15 @@ h1 {
   }
 }
 
+.spot-in:after {
+  z-index: 2;
+  transition: all 0.4s ease;
+}
+.spot-highlight:after {
+  background-color: inherit;
+  transform: scale(2);
+}
+
 .line {
   padding: 20px 0 0;
   &:first-child {
@@ -158,6 +167,9 @@ h1 {
     border-radius: 999px;
     color: $colorWhite;
     text-align: center;
+  }
+  span {
+    cursor: pointer;
   }
 }
 

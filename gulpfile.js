@@ -11,7 +11,7 @@ var csscomb = require('gulp-csscomb');
 // -----------------------------------------------------------------------------
 // Configuration
 // -----------------------------------------------------------------------------
-var localPath = 'F:/Temp/new/soi2/'
+var localPath = 'H:/github/soi2/'
 var input = localPath + 'scss/**/*.scss';
 var output = localPath + '/css';
 
