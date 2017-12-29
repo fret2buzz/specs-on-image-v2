@@ -4,6 +4,7 @@ $htmlTemplate = file_get_contents('template.html');
 $cssContent = file_get_contents('../css/view.css');
 
 $htmlTemplate = str_replace('<link rel="stylesheet" type="text/css" href="../css/view.css">', '', $htmlTemplate);
+$cssContent = str_replace("'", "\'", $cssContent);
 
 $htmlTemplate = str_replace('{$styles}', $cssContent, $htmlTemplate);
 
@@ -20,4 +21,4 @@ $jsTemplate = str_replace('{$main}', $htmlTemplateParts[1], $jsTemplate);
 $jsTemplate = str_replace('{$side}', $sidePart[0] . "'+htmlInformation()+'" . $sidePart[2], $jsTemplate);
 $jsTemplate = str_replace('{$line}', $sidePart[1], $jsTemplate);
 
-file_put_contents('test.js', $jsTemplate);
+file_put_contents('script.js', $jsTemplate);

@@ -11,9 +11,8 @@ var csscomb = require('gulp-csscomb');
 // -----------------------------------------------------------------------------
 // Configuration
 // -----------------------------------------------------------------------------
-var localPath = 'H:/github/soi2/'
-var input = localPath + 'scss/**/*.scss';
-var output = localPath + '/css';
+var input = 'scss/**/*.scss';
+var output = 'css/';
 
 var autoprefixerOptions = {
 		browsers: [
