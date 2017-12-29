@@ -569,9 +569,9 @@ $(document).ready(function() {
     });
 
     var filename = $('#imageInput').val().split('\\').pop();
-    var htmlHeader = 'header';
-    var htmlFooter = 'footer';
-    var htmlMain = '';
+    var htmlHeader = '{$header}';
+    var htmlFooter = "{$footer}";
+    var htmlMain = '{$main}';
     var htmlInformation = function(){
       var elementsSpot = $(".spot");
       var text = '';
@@ -580,12 +580,12 @@ $(document).ready(function() {
           var htmlId = $(this).find(".spot-in").attr("data-id");
           var htmlSubject = $(this).attr("data-subject");
           var htmlDescription = $(this).attr("data-description");
-          text = text + 'line';
+          text = text + '{$line}';
         }
       });
       return text;
     };
-    var htmlSide = '';
+    var htmlSide = '{$side}';
     var html = htmlHeader + htmlMain + htmlSide + htmlFooter;
     var link = $('#downloadLink');
     link.attr("href", makeHTMLFile(html)).css("display", "block");
